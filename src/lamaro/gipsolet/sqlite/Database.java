@@ -1,7 +1,11 @@
 package lamaro.gipsolet.sqlite;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import lamaro.gipsolet.model.Building;
 import lamaro.gipsolet.model.Room;
@@ -36,12 +40,70 @@ public class Database {
 		db.close();
 	}
 
+	public Set<Object> search(String query) {
+		Set<Object> result = new HashSet<Object>();
+		HashMap<Object, Integer> partialResults = new HashMap<Object, Integer>();
+		String[] queryPieces = query.split(" ");
+		
+		partialResults.clear();
+		for (String piece : queryPieces) {
+			for (String column : new String[] { "number", "keywords", "label" }) {
+				Cursor c = db.query("buildings", null, column + " LIKE '%" + piece + "%'", null, null, null, null);
+
+				for (Building b: cursorToBuildings(c)) {
+					if (!partialResults.containsKey(b)) {
+						partialResults.put(b, 0);
+					}
+					partialResults.put(b, partialResults.get(b) + 1);
+				}
+				c.close();
+			}
+		}
+		
+
+		for (String piece : queryPieces) {
+			for (String column : new String[] { "label", "building_id" }) {
+				Cursor c = db.query("rooms", null, column + " LIKE '%" + piece + "%'", null, null, null, null);
+				
+				for (Room r: cursorToRooms(c)) {
+					if (!partialResults.containsKey(r)) {
+						partialResults.put(r, 0);
+					}
+					partialResults.put(r, partialResults.get(r) + 1);
+				}
+				c.close();
+			}
+		}
+		
+		for (String piece : queryPieces) {
+			for (String column : new String[] { "description", "building_id", "keywords" }) {
+				Cursor c = db.query("services", null, column + " LIKE '%" + piece + "%'", null, null, null, null);
+				
+				for (Service s: cursorToServices(c)) {
+					if (!partialResults.containsKey(s)) {
+						partialResults.put(s, 0);
+					}
+					partialResults.put(s, partialResults.get(s) + 1);
+				}
+				c.close();
+			}
+		}
+		
+		for (Entry<Object, Integer> entry: partialResults.entrySet()) {
+			if (entry.getValue() >= queryPieces.length) {
+				result.add(entry.getKey());
+			}
+		}
+		
+		return result;
+	}
+
 	public Building getBuildingById(int id) {
 		Cursor c = db.query("buildings", null, "id = " + id, null, null, null, null);
 
 		Building result = null;
 		if (c.moveToFirst()) {
-			result = cursorToBuilding(c);			
+			result = cursorToBuilding(c);
 		}
 		c.close();
 
@@ -53,7 +115,7 @@ public class Database {
 
 		Room result = null;
 		if (c.moveToFirst()) {
-			result = cursorToRoom(c);			
+			result = cursorToRoom(c);
 		}
 		c.close();
 
@@ -65,7 +127,7 @@ public class Database {
 
 		Service result = null;
 		if (c.moveToFirst()) {
-			result = cursorToService(c);			
+			result = cursorToService(c);
 		}
 		c.close();
 
@@ -115,8 +177,9 @@ public class Database {
 		s.position.x = c.getFloat(1);
 		s.position.y = c.getFloat(2);
 		s.description = c.getString(3);
-		// s.building = getBuildingById(c.getInt(4));
+		s.building = getBuildingById(c.getInt(4));
 		s.floor = c.getInt(5);
+		s.keywords = c.getString(6);
 
 		return s;
 	}
@@ -136,7 +199,7 @@ public class Database {
 		r.id = c.getInt(0);
 		r.position.x = c.getFloat(1);
 		r.position.y = c.getFloat(2);
-		// r.building = getBuildingById(c.getInt(3));
+		r.building = getBuildingById(c.getInt(3));
 		r.floor = c.getInt(4);
 		r.type = c.getInt(5);
 		r.label = c.getString(6);

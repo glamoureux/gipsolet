@@ -4,7 +4,7 @@ import android.graphics.PointF;
 
 public class Room {
 	public Integer id;
-	public PointF position;
+	public PointF position = new PointF();
 	public Building building;
 	public Integer floor;
 	public int type;
@@ -19,5 +19,15 @@ public class Room {
 		result += type + "\n";
 		
 		return result;
+	}
+	
+	@Override
+	public int hashCode() {
+		return id * "room".hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		return o.hashCode() == hashCode();
 	}
 }

@@ -6,7 +6,7 @@ import misc.Polygon;
 public class Building {
 	public Integer id;
 	public Polygon zone;
-	public PointF position;
+	public PointF position = new PointF();
 	public Integer number;
 	public String label;
 	public String keywords;
@@ -25,5 +25,15 @@ public class Building {
 		result += keywords + "\n";
 		
 		return result;
+	}
+	
+	@Override
+	public int hashCode() {
+		return id * "building".hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		return o.hashCode() == hashCode();
 	}
 }

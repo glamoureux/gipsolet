@@ -26,19 +26,24 @@ public class MainActivity extends Activity implements RoutingResultHandler {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// Database db = new Database(this);
-		// db.open();
+		// Tests !
+		Database db = new Database(this);
+		db.open();
 
-		// List<Building> buildings = db.getBuildings();
-		//
-		// PointF p = new PointF(43.634654f,3.862047f);
-		// for (Building b: buildings) {
-		// System.out.println(b.id + " " + b.isInBuilding(p));
-		// }
-		// db.close();
+		List<Building> buildings = db.getBuildings();
+
+		PointF p = new PointF(43.634654f, 3.862047f);
+		for (Building b : buildings) {
+			System.out.println(b.id + " " + b.isInBuilding(p));
+		}
 
 		RoutingTask r = new RoutingTask(this);
 		r.execute(new PointF(43.614799f, 3.886697f), new PointF(43.631983f, 3.861178f));
+		
+		for (Object o: db.search("secre info")) {
+			System.out.println(o);
+		}
+		db.close();
 	}
 
 	@Override

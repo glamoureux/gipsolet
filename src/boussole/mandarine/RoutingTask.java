@@ -44,9 +44,7 @@ public class RoutingTask extends AsyncTask<PointF, Void, JSONObject> {
 			.appendQueryParameter("start", start)
 			.appendQueryParameter("end", end)
 			.build().toString();
-		
-		System.out.println(url);
-		
+				
 		HttpGet request = new HttpGet(url);
 		
 		JSONObject result = null;
