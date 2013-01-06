@@ -1,9 +1,10 @@
 package lamaro.gipsolet.model;
 
+import android.graphics.PointF;
+
 public class Room {
 	public Integer id;
-	public Number latitude;
-	public Number longitude;
+	public PointF position;
 	public Building building;
 	public Integer floor;
 	public int type;
@@ -12,7 +13,7 @@ public class Room {
 	@Override
 	public String toString() {
 		String result = id + "\n";
-		result += latitude + "/" + longitude + "\n";
+		result += position.x + "/" + position.y + "\n";
 		result += "Etage " + floor + "\n";
 		result += label + "\n";
 		result += type + "\n";

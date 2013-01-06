@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class Database {
 
-	private static final int DB_VERSION = 2;
+	private static final int DB_VERSION = 1;
 	private static final String DB_NAME = "gipsolet";
 
 	private DatabaseHelper dbHelper;
@@ -112,8 +112,8 @@ public class Database {
 	private Service cursorToService(Cursor c) {
 		Service s = new Service();
 		s.id = c.getInt(0);
-		s.latitude = c.getFloat(1);
-		s.longitude = c.getFloat(2);
+		s.position.x = c.getFloat(1);
+		s.position.y = c.getFloat(2);
 		s.description = c.getString(3);
 		// s.building = getBuildingById(c.getInt(4));
 		s.floor = c.getInt(5);
@@ -134,8 +134,8 @@ public class Database {
 	private Room cursorToRoom(Cursor c) {
 		Room r = new Room();
 		r.id = c.getInt(0);
-		r.latitude = c.getFloat(1);
-		r.longitude = c.getFloat(2);
+		r.position.x = c.getFloat(1);
+		r.position.y = c.getFloat(2);
 		// r.building = getBuildingById(c.getInt(3));
 		r.floor = c.getInt(4);
 		r.type = c.getInt(5);
@@ -158,8 +158,8 @@ public class Database {
 		Building b = new Building();
 		b.id = c.getInt(0);
 		b.zone = Polygon.createFrom(c.getString(1));
-		b.latitude = c.getFloat(2);
-		b.longitude = c.getFloat(3);
+		b.position.x = c.getFloat(2);
+		b.position.y = c.getFloat(3);
 		b.number = c.getInt(4);
 		b.label = c.getString(5);
 		b.keywords = c.getString(6);
