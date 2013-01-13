@@ -2,7 +2,7 @@ package lamaro.gipsolet.model;
 
 import android.graphics.PointF;
 
-public class Room {
+public class Room implements CampusEntity {
 	public Integer id;
 	public PointF position = new PointF();
 	public Building building;
@@ -29,5 +29,15 @@ public class Room {
 	@Override
 	public boolean equals(Object o) {
 		return o.hashCode() == hashCode();
+	}
+
+	@Override
+	public PointF getPosition() {
+		return position;
+	}
+
+	@Override
+	public String getName() {
+		return label;
 	}
 }

@@ -3,7 +3,7 @@ package lamaro.gipsolet.model;
 import android.graphics.PointF;
 import misc.Polygon;
 
-public class Building {
+public class Building implements CampusEntity {
 	public Integer id;
 	public Polygon zone;
 	public PointF position = new PointF();
@@ -35,5 +35,15 @@ public class Building {
 	@Override
 	public boolean equals(Object o) {
 		return o.hashCode() == hashCode();
+	}
+
+	@Override
+	public PointF getPosition() {
+		return position;
+	}
+
+	@Override
+	public String getName() {
+		return label;
 	}
 }

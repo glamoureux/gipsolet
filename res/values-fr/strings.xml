@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Gipsolet</string>
+    <string name="search_hint">Recherchez dans le campus</string>
     <string name="hello_world">Salut tout le monde !</string>
     <string name="menu_settings">Paramètres</string>
-
 </resources>

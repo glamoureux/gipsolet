@@ -2,12 +2,11 @@ package lamaro.gipsolet.sqlite;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import lamaro.gipsolet.model.Building;
+import lamaro.gipsolet.model.CampusEntity;
 import lamaro.gipsolet.model.Room;
 import lamaro.gipsolet.model.Service;
 import misc.Polygon;
@@ -40,9 +39,9 @@ public class Database {
 		db.close();
 	}
 
-	public Set<Object> search(String query) {
-		Set<Object> result = new HashSet<Object>();
-		HashMap<Object, Integer> partialResults = new HashMap<Object, Integer>();
+	public List<CampusEntity> search(String query) {
+		List<CampusEntity> result = new ArrayList<CampusEntity>();
+		HashMap<CampusEntity, Integer> partialResults = new HashMap<CampusEntity, Integer>();
 		String[] queryPieces = query.split(" ");
 		
 		partialResults.clear();
@@ -89,7 +88,7 @@ public class Database {
 			}
 		}
 		
-		for (Entry<Object, Integer> entry: partialResults.entrySet()) {
+		for (Entry<CampusEntity, Integer> entry: partialResults.entrySet()) {
 			if (entry.getValue() >= queryPieces.length) {
 				result.add(entry.getKey());
 			}

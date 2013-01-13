@@ -26,7 +26,6 @@ public class RoutingTask extends AsyncTask<PointF, Void, JSONObject> {
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-
 	}
 
 	@Override
