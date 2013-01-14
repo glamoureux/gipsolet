@@ -23,8 +23,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value="lamaro.gipsolet.activity.SearchableActivity" />
         </activity>
-        <activity android:name="lamaro.gipsolet.activity.SearchableActivity" >
+        <activity
+            android:name="lamaro.gipsolet.activity.SearchableActivity"
+            android:exported="false"
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
