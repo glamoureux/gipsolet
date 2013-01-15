@@ -9,10 +9,10 @@ import boussole.mandarine.RoutingTask;
 import boussole.mandarine.RoutingResultHandler;
 
 import lamaro.gipsolet.R;
+import lamaro.gipsolet.data.Database;
 import lamaro.gipsolet.model.Building;
 import lamaro.gipsolet.model.Room;
 import lamaro.gipsolet.model.Service;
-import lamaro.gipsolet.sqlite.Database;
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.PointF;

@@ -1,4 +1,4 @@
-package lamaro.gipsolet.sqlite;
+package lamaro.gipsolet.data;
 
 import java.io.InputStream;
 

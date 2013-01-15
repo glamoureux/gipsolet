@@ -40,4 +40,9 @@ public class Room implements CampusEntity {
 	public String getName() {
 		return label;
 	}
+	
+	@Override
+	public long getId() {
+		return id;
+	}
 }

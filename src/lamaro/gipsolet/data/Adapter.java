@@ -1,4 +1,4 @@
-package lamaro.gipsolet.sqlite;
+package lamaro.gipsolet.data;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,12 +15,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class CampusEntitiesAdapter extends BaseAdapter {
+public class Adapter extends BaseAdapter {
 	private List<CampusEntity> source;
 	private Context context;
 	private int layoutId;
 	
-	public CampusEntitiesAdapter(Context context, int layoutId) {
+	public Adapter(Context context, int layoutId) {
 		this.source = new ArrayList<CampusEntity>();
 		this.context = context;
 		this.layoutId = layoutId;

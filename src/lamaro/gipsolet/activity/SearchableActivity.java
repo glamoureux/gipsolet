@@ -3,9 +3,9 @@ package lamaro.gipsolet.activity;
 import java.util.List;
 
 import lamaro.gipsolet.R;
+import lamaro.gipsolet.data.Adapter;
+import lamaro.gipsolet.data.Database;
 import lamaro.gipsolet.model.CampusEntity;
-import lamaro.gipsolet.sqlite.CampusEntitiesAdapter;
-import lamaro.gipsolet.sqlite.Database;
 import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
@@ -17,28 +17,18 @@ public class SearchableActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		System.out.println("Je suis ici");
 
-
-		setListAdapter(new CampusEntitiesAdapter(this, R.layout.campus_entity_search_item));
-
-		System.out.println("ICI = " + super.getListAdapter());
-		System.out.println("ICI MDR = " + getListAdapter());
-		
+		setListAdapter(new Adapter(this, R.layout.campus_entity_search_item));
 		handleIntent(getIntent());
-
-		setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {
-		System.out.println("je suis la");
 		setIntent(intent);
 		handleIntent(intent);
 	}
 
 	private void doMySearch(String query) {
-		System.out.println("REQUETE = " + query);
 		Database db = new Database(this);
 		db.open();
 
@@ -50,19 +40,23 @@ public class SearchableActivity extends ListActivity {
 	}
 
 	private void handleIntent(Intent intent) {
+		System.out.println(intent);
+		System.out.println(intent.getAction());
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String query = intent.getStringExtra(SearchManager.QUERY);
 			doMySearch(query);
+		} else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+			System.out.println("DATA = " + intent.getDataString());
 		}
 	}
 
 	@Override
-	public CampusEntitiesAdapter getListAdapter() {
-		return (CampusEntitiesAdapter) super.getListAdapter();
+	public Adapter getListAdapter() {
+		return (Adapter) super.getListAdapter();
 	}
 
 	@Override
 	public void setListAdapter(ListAdapter adapter) {
-		super.setListAdapter((CampusEntitiesAdapter) adapter);
+		super.setListAdapter((Adapter) adapter);
 	}
 }

@@ -1,4 +1,4 @@
-package lamaro.gipsolet.sqlite;
+package lamaro.gipsolet.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,8 +11,10 @@ import lamaro.gipsolet.model.Room;
 import lamaro.gipsolet.model.Service;
 import misc.Polygon;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class Database {
@@ -20,15 +22,15 @@ public class Database {
 	private static final int DB_VERSION = 1;
 	private static final String DB_NAME = "gipsolet";
 
-	private DatabaseHelper dbHelper;
+	private DatabaseHelper helper;
 	private SQLiteDatabase db;
 
 	public Database(Context ctx) {
-		dbHelper = new DatabaseHelper(ctx, DB_NAME, null, DB_VERSION);
+		helper = new DatabaseHelper(ctx, DB_NAME, null, DB_VERSION);
 	}
 
 	public void open() {
-		db = dbHelper.getWritableDatabase();
+		db = helper.getWritableDatabase();
 	}
 
 	public SQLiteDatabase getDb() {
@@ -38,7 +40,7 @@ public class Database {
 	public void close() {
 		db.close();
 	}
-
+	
 	public List<CampusEntity> search(String query) {
 		List<CampusEntity> result = new ArrayList<CampusEntity>();
 		HashMap<CampusEntity, Integer> partialResults = new HashMap<CampusEntity, Integer>();
@@ -84,6 +86,7 @@ public class Database {
 					}
 					partialResults.put(s, partialResults.get(s) + 1);
 				}
+
 				c.close();
 			}
 		}

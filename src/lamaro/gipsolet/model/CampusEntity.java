@@ -7,4 +7,6 @@ public interface CampusEntity {
 	PointF getPosition();
 	
 	String getName();
+	
+	long getId();
 }

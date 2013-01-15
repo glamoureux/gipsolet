@@ -39,4 +39,9 @@ public class Service implements CampusEntity {
 	public String getName() {
 		return description;
 	}
+	
+	@Override
+	public long getId() {
+		return id;
+	}
 }
