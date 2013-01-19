@@ -7,6 +7,7 @@ import lamaro.gipsolet.model.Building;
 import lamaro.gipsolet.model.Room;
 import lamaro.gipsolet.model.Service;
 import misc.Polygon;
+import misc.StringUtils;
 
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
@@ -86,10 +87,8 @@ public class Database {
 		Cursor cursor = builder.query(helper.getReadableDatabase(), columns, selection, selectionArgs, null, null, null);
 
 		if (cursor == null) {
-			System.out.println("pas de resultat 1");
 			return null;
 		} else if (!cursor.moveToFirst()) {
-			System.out.println("pas de resultat 2");
 			cursor.close();
 			return null;
 		}
@@ -100,7 +99,7 @@ public class Database {
 	@SuppressLint("DefaultLocale")
 	public Cursor searchCampusEntitiesMatches(String query) {
 		String selection = "words MATCH ?";
-		String[] selectionArgs = new String[] { query.trim().toLowerCase().replaceAll(" ", "* ") + "*" };
+		String[] selectionArgs = new String[] { StringUtils.removeAccents(query.trim().toLowerCase()).replaceAll(" ", "* ") + "*" };
 
 		return query(selection, selectionArgs, null);
 	}
