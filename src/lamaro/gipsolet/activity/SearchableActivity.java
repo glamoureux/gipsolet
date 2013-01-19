@@ -29,14 +29,14 @@ public class SearchableActivity extends ListActivity {
 	}
 
 	private void doMySearch(String query) {
-		Database db = new Database(this);
-		db.open();
-
-		List<CampusEntity> result = db.search(query);
-		System.out.println(getListAdapter());
-		getListAdapter().set(result);
-
-		db.close();
+//		Database db = new Database(this);
+//		db.open();
+//
+//		List<CampusEntity> result = db.search(query);
+//		System.out.println(getListAdapter());
+//		getListAdapter().set(result);
+//
+//		db.close();
 	}
 
 	private void handleIntent(Intent intent) {

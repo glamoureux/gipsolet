@@ -1,19 +1,10 @@
 package lamaro.gipsolet.data;
 
-import lamaro.gipsolet.R;
-import lamaro.gipsolet.model.Building;
-import lamaro.gipsolet.model.CampusEntity;
-import lamaro.gipsolet.model.Room;
-import lamaro.gipsolet.model.Service;
 import android.app.SearchManager;
 import android.content.ContentProvider;
-import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.MatrixCursor;
 import android.net.Uri;
-import android.provider.BaseColumns;
 
 public class Provider extends ContentProvider {
 	public static final String KEY_TITLE = SearchManager.SUGGEST_COLUMN_TEXT_1;
@@ -39,38 +30,8 @@ public class Provider extends ContentProvider {
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		String query = uri.getLastPathSegment();
-		if (query.length() < 3) {
-			return null;
-		}
 
-		db.open();
-		MatrixCursor result = new MatrixCursor(new String[] { BaseColumns._ID, KEY_TITLE, KEY_ICON_TYPE, KEY_ENTITY_ID });
-		int cpt = 0;
-		for (CampusEntity ce : db.search(query)) {
-			int icon = 0;
-			String id = "";
-
-			if (ce instanceof Building) {
-				icon = R.drawable.building;
-				id = "building/" + ce.getId();
-			} else if (ce instanceof Room) {
-				icon = R.drawable.room;
-				id = "room/" + ce.getId();
-			} else if (ce instanceof Service) {
-				icon = R.drawable.service;
-				id = "service/" + ce.getId();
-			}
-
-			result.addRow(new Object[] { ce.getId(), ce.getName(), icon, id });
-
-			if (cpt >= 10) {
-				break;
-			}
-
-			cpt++;
-		}
-
-		return result;
+		return db.searchCampusEntitiesMatches(query);
 	}
 
 	/**

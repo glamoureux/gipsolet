@@ -3,101 +3,106 @@ package lamaro.gipsolet.data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
-
 import lamaro.gipsolet.model.Building;
-import lamaro.gipsolet.model.CampusEntity;
 import lamaro.gipsolet.model.Room;
 import lamaro.gipsolet.model.Service;
 import misc.Polygon;
 
+import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.MatrixCursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
+import android.provider.BaseColumns;
 
 public class Database {
 
-	private static final int DB_VERSION = 1;
-	private static final String DB_NAME = "gipsolet";
+	private static final int DB_VERSION = 2;
+	
+	public static final String DB_NAME = "gipsolet";
+	public static final String TABLE_BUILDINGS = "buildings";
+	public static final String TABLE_ROOMS = "rooms";
+	public static final String TABLE_SERVICES = "services";
+	public static final String TABLE_KEYWORDS = "keywords";
+	
+	public static final String CE_ID = "id";
+	public static final String CE_ZONE = "zone";
+	public static final String CE_P_LAT = "p_lat";
+	public static final String CE_P_LON = "p_lon";
+	public static final String CE_NUMBER = "number";
+	public static final String CE_LABEL = "label";
+	public static final String CE_FLOOR = "floor";
+	public static final String CE_TYPE_ROOM = "type";
+	public static final String CE_BUILDING = "building_id";
+	
+	public static final String KEYWORDS_WORDS = "words";
+	public static final String KEYWORDS_NAME = SearchManager.SUGGEST_COLUMN_TEXT_1;
+	public static final String KEYWORDS_ICON = SearchManager.SUGGEST_COLUMN_ICON_1;
+	public static final String KEYWORDS_TYPE = SearchManager.SUGGEST_COLUMN_INTENT_DATA;
+	public static final String KEYWORDS_ID = SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID;
 
 	private DatabaseHelper helper;
 	private SQLiteDatabase db;
+	private HashMap<String, String> columnsMap = buildColumnsMap();
 
 	public Database(Context ctx) {
 		helper = new DatabaseHelper(ctx, DB_NAME, null, DB_VERSION);
 	}
 
-	public void open() {
-		db = helper.getWritableDatabase();
+	private static HashMap<String, String> buildColumnsMap() {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put(KEYWORDS_NAME, KEYWORDS_NAME);
+		map.put(KEYWORDS_ICON, KEYWORDS_ICON);
+		map.put(KEYWORDS_TYPE, KEYWORDS_TYPE);
+		map.put(KEYWORDS_ID, KEYWORDS_ID);
+		map.put(BaseColumns._ID, "rowid AS " + BaseColumns._ID);
+
+		return map;
 	}
 
-	public SQLiteDatabase getDb() {
-		return db;
+	/**
+	 * Performs a database query.
+	 * 
+	 * @param selection
+	 *            The selection clause
+	 * @param selectionArgs
+	 *            Selection arguments for "?" components in the selection
+	 * @param columns
+	 *            The columns to return
+	 * @return A Cursor over all rows matching the query
+	 */
+	private Cursor query(String selection, String[] selectionArgs, String[] columns) {
+		/*
+		 * The SQLiteBuilder provides a map for all possible columns requested
+		 * to actual columns in the database, creating a simple column alias
+		 * mechanism by which the ContentProvider does not need to know the real
+		 * column names
+		 */
+		SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+		builder.setTables("keywords");
+		builder.setProjectionMap(columnsMap);
+
+		Cursor cursor = builder.query(helper.getReadableDatabase(), columns, selection, selectionArgs, null, null, null);
+
+		if (cursor == null) {
+			System.out.println("pas de resultat 1");
+			return null;
+		} else if (!cursor.moveToFirst()) {
+			System.out.println("pas de resultat 2");
+			cursor.close();
+			return null;
+		}
+
+		return cursor;
 	}
 
-	public void close() {
-		db.close();
-	}
-	
-	public List<CampusEntity> search(String query) {
-		List<CampusEntity> result = new ArrayList<CampusEntity>();
-		HashMap<CampusEntity, Integer> partialResults = new HashMap<CampusEntity, Integer>();
-		String[] queryPieces = query.split(" ");
-		
-		partialResults.clear();
-		for (String piece : queryPieces) {
-			for (String column : new String[] { "number", "keywords", "label" }) {
-				Cursor c = db.query("buildings", null, column + " LIKE '%" + piece + "%'", null, null, null, null);
+	@SuppressLint("DefaultLocale")
+	public Cursor searchCampusEntitiesMatches(String query) {
+		String selection = "words MATCH ?";
+		String[] selectionArgs = new String[] { query.trim().toLowerCase().replaceAll(" ", "* ") + "*" };
 
-				for (Building b: cursorToBuildings(c)) {
-					if (!partialResults.containsKey(b)) {
-						partialResults.put(b, 0);
-					}
-					partialResults.put(b, partialResults.get(b) + 1);
-				}
-				c.close();
-			}
-		}
-		
-
-		for (String piece : queryPieces) {
-			for (String column : new String[] { "label", "building_id" }) {
-				Cursor c = db.query("rooms", null, column + " LIKE '%" + piece + "%'", null, null, null, null);
-				
-				for (Room r: cursorToRooms(c)) {
-					if (!partialResults.containsKey(r)) {
-						partialResults.put(r, 0);
-					}
-					partialResults.put(r, partialResults.get(r) + 1);
-				}
-				c.close();
-			}
-		}
-		
-		for (String piece : queryPieces) {
-			for (String column : new String[] { "description", "building_id", "keywords" }) {
-				Cursor c = db.query("services", null, column + " LIKE '%" + piece + "%'", null, null, null, null);
-				
-				for (Service s: cursorToServices(c)) {
-					if (!partialResults.containsKey(s)) {
-						partialResults.put(s, 0);
-					}
-					partialResults.put(s, partialResults.get(s) + 1);
-				}
-
-				c.close();
-			}
-		}
-		
-		for (Entry<CampusEntity, Integer> entry: partialResults.entrySet()) {
-			if (entry.getValue() >= queryPieces.length) {
-				result.add(entry.getKey());
-			}
-		}
-		
-		return result;
+		return query(selection, selectionArgs, null);
 	}
 
 	public Building getBuildingById(int id) {

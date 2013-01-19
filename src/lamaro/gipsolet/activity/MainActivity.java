@@ -5,14 +5,14 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import boussole.mandarine.RoutingTask;
-import boussole.mandarine.RoutingResultHandler;
 
 import lamaro.gipsolet.R;
 import lamaro.gipsolet.data.Database;
 import lamaro.gipsolet.model.Building;
 import lamaro.gipsolet.model.Room;
 import lamaro.gipsolet.model.Service;
+import mandarine.boussole.RoutingResultHandler;
+import mandarine.boussole.RoutingTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.PointF;

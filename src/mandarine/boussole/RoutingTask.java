@@ -1,4 +1,4 @@
-package boussole.mandarine;
+package mandarine.boussole;
 
 import java.io.IOException;
 
