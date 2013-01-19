@@ -7,9 +7,8 @@ import android.database.Cursor;
 import android.net.Uri;
 
 public class Provider extends ContentProvider {
-	public static final String KEY_TITLE = SearchManager.SUGGEST_COLUMN_TEXT_1;
-	public static final String KEY_ICON_TYPE = SearchManager.SUGGEST_COLUMN_ICON_1;
-	public static final String KEY_ENTITY_ID = SearchManager.SUGGEST_COLUMN_INTENT_DATA;
+	public static String AUTHORITY = "lamaro.gipsolet.data.Provider";
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + SearchManager.SUGGEST_URI_PATH_QUERY);
 
 	private Database db;
 
@@ -29,9 +28,7 @@ public class Provider extends ContentProvider {
 	 */
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-		String query = uri.getLastPathSegment();
-
-		return db.searchCampusEntitiesMatches(query);
+		return db.searchCampusEntitiesMatches(selectionArgs[0]);
 	}
 
 	/**

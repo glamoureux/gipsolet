@@ -1,24 +1,33 @@
 package lamaro.gipsolet.activity;
 
-import java.util.List;
-
 import lamaro.gipsolet.R;
-import lamaro.gipsolet.data.Adapter;
+import lamaro.gipsolet.data.CEAdapter;
 import lamaro.gipsolet.data.Database;
-import lamaro.gipsolet.model.CampusEntity;
+import lamaro.gipsolet.data.Provider;
 import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.widget.Adapter;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 
 public class SearchableActivity extends ListActivity {
+
+	private TextView resultText;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setListAdapter(new Adapter(this, R.layout.campus_entity_search_item));
+		setContentView(R.layout.ce_search);
+		// setListAdapter(new Adapter(this, R.layout.ce_search_item));
+
+		resultText = (TextView) findViewById(R.id.text_result);
+
 		handleIntent(getIntent());
 	}
 
@@ -29,14 +38,23 @@ public class SearchableActivity extends ListActivity {
 	}
 
 	private void doMySearch(String query) {
-//		Database db = new Database(this);
-//		db.open();
-//
-//		List<CampusEntity> result = db.search(query);
-//		System.out.println(getListAdapter());
-//		getListAdapter().set(result);
-//
-//		db.close();
+		CursorLoader loader = new CursorLoader(this, Provider.CONTENT_URI, null, null, new String[] { query }, null);
+		Cursor cursor = loader.loadInBackground();
+
+		if (cursor == null) {
+			resultText.setText(getString(R.string.no_results, new Object[] { query }));
+		} else {
+			// Display the number of results
+			int count = cursor.getCount();
+			String countString = getResources().getQuantityString(R.plurals.search_results, count,
+					new Object[] { count, query });
+			resultText.setText(countString);
+
+			// Create a simple cursor adapter for the definitions and apply them
+			// to the ListView
+			ListAdapter adapter = new CEAdapter(this, R.layout.ce_search_item, cursor, 0);
+			setListAdapter(adapter);
+		}
 	}
 
 	private void handleIntent(Intent intent) {
@@ -48,15 +66,5 @@ public class SearchableActivity extends ListActivity {
 		} else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
 			System.out.println("DATA = " + intent.getDataString());
 		}
-	}
-
-	@Override
-	public Adapter getListAdapter() {
-		return (Adapter) super.getListAdapter();
-	}
-
-	@Override
-	public void setListAdapter(ListAdapter adapter) {
-		super.setListAdapter((Adapter) adapter);
 	}
 }

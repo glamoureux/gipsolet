@@ -26,6 +26,7 @@
         </activity>
         <activity
             android:name="lamaro.gipsolet.activity.SearchableActivity"
+            android:label="@string/search_activity"
             android:exported="false"
             android:launchMode="singleTop" >
             <intent-filter>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="fill_parent"
+        android:layout_height="40sp"
+        android:gravity="center_vertical"
+        android:textSize="15sp"
+        android:drawablePadding="15sp"
+        android:textStyle="normal"
+        android:color="#ffffff" />
+
+</LinearLayout>

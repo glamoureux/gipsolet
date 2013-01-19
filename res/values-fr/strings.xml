@@ -4,4 +4,14 @@
     <string name="search_hint">Recherchez dans le campus</string>
     <string name="hello_world">Salut tout le monde !</string>
     <string name="menu_settings">Paramètres</string>
+    
+    <string name="icon">icone</string>
+
+    <plurals name="search_results">
+        <item quantity="one">%1$d résultat pour \"%2$s\" : </item>
+        <item quantity="other">%1$d résultats pour \"%2$s\" : </item>
+    </plurals>
+    
+    <string name="no_results">Pas de résultats pour \"%s\"</string>
+    <string name="search_activity">Gipsolet : Recherche globale</string>
 </resources>
