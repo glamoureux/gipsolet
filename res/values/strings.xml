@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">Gipsolet</string>
+    <string name="app_description">Geolocation in Triolet campus</string>
     <string name="search_hint">Search in campus</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
@@ -14,4 +15,11 @@
 
     <string name="no_results">No results found for \"%s\"</string>
     <string name="search_activity">Gipsolet: Global search</string>
+    <string name="buildings">Buildings</string>
+    <string name="rooms">Rooms</string>
+    <string name="services">Services</string>
+    <string name="not_in_triolet">You\'re currently outside of the campus</string>
+    <string name="in_triolet">You\'re currently in the campus</string>
+    <string name="map">Map</string>
+
 </resources>

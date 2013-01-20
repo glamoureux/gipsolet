@@ -15,9 +15,14 @@ import mandarine.boussole.RoutingResultHandler;
 import mandarine.boussole.RoutingTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Color;
 import android.graphics.PointF;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.BackgroundColorSpan;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends Activity implements RoutingResultHandler {
 
@@ -26,7 +31,7 @@ public class MainActivity extends Activity implements RoutingResultHandler {
 		// Creation
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
 		// Tests !
 //		Database db = new Database(this);
 //		db.open();
@@ -41,9 +46,6 @@ public class MainActivity extends Activity implements RoutingResultHandler {
 //		RoutingTask r = new RoutingTask(this);
 //		r.execute(new PointF(43.614799f, 3.886697f), new PointF(43.631983f, 3.861178f));
 //		
-//		for (Object o: db.search("secre info")) {
-//			System.out.println(o);
-//		}
 //		db.close();
 	}
 	

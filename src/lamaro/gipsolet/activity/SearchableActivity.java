@@ -2,7 +2,6 @@ package lamaro.gipsolet.activity;
 
 import lamaro.gipsolet.R;
 import lamaro.gipsolet.data.CEAdapter;
-import lamaro.gipsolet.data.Database;
 import lamaro.gipsolet.data.Provider;
 import android.app.ListActivity;
 import android.app.SearchManager;
@@ -10,8 +9,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.widget.Adapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -24,7 +21,6 @@ public class SearchableActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.ce_search);
-		// setListAdapter(new Adapter(this, R.layout.ce_search_item));
 
 		resultText = (TextView) findViewById(R.id.text_result);
 

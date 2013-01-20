@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Gipsolet</string>
+    <string name="app_description">Géolocalisation dans le campus Triolet</string>
     <string name="search_hint">Recherchez dans le campus</string>
     <string name="hello_world">Salut tout le monde !</string>
     <string name="menu_settings">Paramètres</string>
-    
     <string name="icon">icone</string>
 
     <plurals name="search_results">
         <item quantity="one">%1$d résultat pour \"%2$s\" : </item>
         <item quantity="other">%1$d résultats pour \"%2$s\" : </item>
     </plurals>
-    
+
     <string name="no_results">Pas de résultats pour \"%s\"</string>
     <string name="search_activity">Gipsolet : Recherche globale</string>
+    <string name="buildings">Bâtiments</string>
+    <string name="rooms">Salles</string>
+    <string name="services">Services</string>
+    <string name="not_in_triolet">Vous n\'êtes actuellement pas sur le campus</string>
+    <string name="in_triolet">Vous êtes actuellement sur le campus</string>
+    <string name="map">Plan</string>
+
 </resources>

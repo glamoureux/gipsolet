@@ -19,7 +19,7 @@ import android.provider.BaseColumns;
 
 public class Database {
 
-	private static final int DB_VERSION = 2;
+	private static final int DB_VERSION = 1;
 	
 	public static final String DB_NAME = "gipsolet";
 	public static final String TABLE_BUILDINGS = "buildings";
