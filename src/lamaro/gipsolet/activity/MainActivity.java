@@ -1,10 +1,7 @@
 package lamaro.gipsolet.activity;
 
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import lamaro.gipsolet.R;
 import lamaro.gipsolet.data.Database;
 import lamaro.gipsolet.model.Building;
@@ -15,7 +12,6 @@ import lamaro.gipsolet.service.GeolocationServiceBinder;
 import lamaro.gipsolet.service.GeolocationServiceListener;
 import lamaro.gipsolet.service.IGeolocationService;
 import mandarine.boussole.RoutingResultHandler;
-import mandarine.boussole.RoutingTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.app.Activity;

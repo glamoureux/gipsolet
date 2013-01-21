@@ -9,7 +9,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
+import android.util.Log;
+import android.view.View;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class SearchableActivity extends ListActivity {
@@ -21,9 +24,9 @@ public class SearchableActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.ce_search);
-
+		
 		resultText = (TextView) findViewById(R.id.text_result);
-
+		
 		handleIntent(getIntent());
 	}
 
@@ -61,6 +64,10 @@ public class SearchableActivity extends ListActivity {
 			doMySearch(query);
 		} else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
 			System.out.println("DATA = " + intent.getDataString());
+			
+			Intent intent1 = new Intent(this, ViewEntityActivity.class);
+			intent1.putExtra("id", intent.getDataString());
+			startActivity(intent1);
 		}
 	}
 }
