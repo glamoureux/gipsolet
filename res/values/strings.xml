@@ -21,5 +21,12 @@
     <string name="not_in_triolet">You\'re currently outside of the campus</string>
     <string name="in_triolet">You\'re currently in the campus</string>
     <string name="map">Map</string>
+    <string name="location_disabled">Geolocation disabled</string>
+    <string name="location_disabled_description">Gipsolet has stopped following you.</string>
+    <string name="location_changed">Gipsolet is following you</string>
+    <string name="location_changed_enter_campus">You just enter the Triolet campus.</string>
+    <string name="location_changed_enter_building">You just enter in the building %s</string>
+    <string name="location_changed_quit_campus">You just left the Triolet campus.</string>
+    <string name="location_changed_quit_building">You just left the building %s.</string>
 
 </resources>

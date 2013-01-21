@@ -15,13 +15,28 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+	private static DatabaseHelper instance;
+	
 	private Context context;
 
-	public DatabaseHelper(Context context, String name, CursorFactory factory, int version) {
-		super(context, name, factory, version);
+	private DatabaseHelper(Context context) {
+		super(context, Database.DB_NAME, null, Database.DB_VERSION);
 
 		this.context = context;
 	}
+	
+	public static DatabaseHelper getInstance(Context ctx) {
+        /** 
+         * use the application context as suggested by CommonsWare.
+         * this will ensure that you dont accidentally leak an Activitys
+         * context (see this article for more information: 
+         * http://developer.android.com/resources/articles/avoiding-memory-leaks.html)
+         */
+        if (instance == null) {
+        	instance= new DatabaseHelper(ctx.getApplicationContext());
+        }
+        return instance;
+    }
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {

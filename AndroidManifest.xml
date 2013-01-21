@@ -9,6 +9,10 @@
         android:targetSdkVersion="16" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
+    <uses-permission android:name="android.permission.LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -26,8 +30,8 @@
         </activity>
         <activity
             android:name="lamaro.gipsolet.activity.SearchableActivity"
-            android:label="@string/search_activity"
             android:exported="false"
+            android:label="@string/search_activity"
             android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -39,12 +43,16 @@
         </activity>
 
         <!-- Provides search suggestions for words and their definitions. -->
-        <provider android:name="lamaro.gipsolet.data.Provider"
-                  android:authorities="lamaro.gipsolet.data.Provider" />
-        
+        <provider
+            android:name="lamaro.gipsolet.data.Provider"
+            android:authorities="lamaro.gipsolet.data.Provider"
+            android:exported="false" />
+
         <meta-data
             android:name="android.app.default_searchable"
             android:value="lamaro.gipsolet.activity.SearchableActivity" />
+
+        <service android:name="lamaro.gipsolet.service.GeolocationService" />
     </application>
 
 </manifest>

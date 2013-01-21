@@ -13,13 +13,12 @@ import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.provider.BaseColumns;
 
 public class Database {
 
-	private static final int DB_VERSION = 1;
+	public static final int DB_VERSION = 42;
 	
 	public static final String DB_NAME = "gipsolet";
 	public static final String TABLE_BUILDINGS = "buildings";
@@ -44,11 +43,10 @@ public class Database {
 	public static final String KEYWORDS_ID = SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID;
 
 	private DatabaseHelper helper;
-	private SQLiteDatabase db;
 	private HashMap<String, String> columnsMap = buildColumnsMap();
 
 	public Database(Context ctx) {
-		helper = new DatabaseHelper(ctx, DB_NAME, null, DB_VERSION);
+		helper = DatabaseHelper.getInstance(ctx);
 	}
 
 	private static HashMap<String, String> buildColumnsMap() {
@@ -81,7 +79,7 @@ public class Database {
 		 * column names
 		 */
 		SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-		builder.setTables("keywords");
+		builder.setTables(TABLE_KEYWORDS);
 		builder.setProjectionMap(columnsMap);
 
 		Cursor cursor = builder.query(helper.getReadableDatabase(), columns, selection, selectionArgs, null, null, null);
@@ -105,7 +103,7 @@ public class Database {
 	}
 
 	public Building getBuildingById(int id) {
-		Cursor c = db.query("buildings", null, "id = " + id, null, null, null, null);
+		Cursor c = helper.getReadableDatabase().query("buildings", null, "id = " + id, null, null, null, null);
 
 		Building result = null;
 		if (c.moveToFirst()) {
@@ -117,7 +115,7 @@ public class Database {
 	}
 
 	public Room getRoomById(int id) {
-		Cursor c = db.query("rooms", null, "id = " + id, null, null, null, null);
+		Cursor c = helper.getReadableDatabase().query("rooms", null, "id = " + id, null, null, null, null);
 
 		Room result = null;
 		if (c.moveToFirst()) {
@@ -129,7 +127,7 @@ public class Database {
 	}
 
 	public Service getServiceById(int id) {
-		Cursor c = db.query("services", null, "id = " + id, null, null, null, null);
+		Cursor c = helper.getReadableDatabase().query("services", null, "id = " + id, null, null, null, null);
 
 		Service result = null;
 		if (c.moveToFirst()) {
@@ -140,8 +138,12 @@ public class Database {
 		return result;
 	}
 
+	public Cursor getCursorBuildings() {
+		return helper.getReadableDatabase().query("buildings", null, null, null, null, null, "id");
+	}
+	
 	public List<Building> getBuildings() {
-		Cursor c = db.query("buildings", null, null, null, null, null, "id");
+		Cursor c = getCursorBuildings();
 
 		List<Building> result = cursorToBuildings(c);
 		c.close();
@@ -150,7 +152,7 @@ public class Database {
 	}
 
 	public List<Room> getRoomsOfBuilding(Building b) {
-		Cursor c = db.query("rooms", null, "building_id = " + b.id, null, null, null, "id");
+		Cursor c = helper.getReadableDatabase().query("rooms", null, "building_id = " + b.id, null, null, null, "id");
 
 		List<Room> result = cursorToRooms(c);
 		c.close();
@@ -159,7 +161,7 @@ public class Database {
 	}
 
 	public List<Service> getServicesOfBuilding(Building b) {
-		Cursor c = db.query("services", null, "building_id = " + b.id, null, null, null, "id");
+		Cursor c = helper.getReadableDatabase().query("services", null, "building_id = " + b.id, null, null, null, "id");
 
 		List<Service> result = cursorToServices(c);
 		c.close();
@@ -185,7 +187,6 @@ public class Database {
 		s.description = c.getString(3);
 		s.building = getBuildingById(c.getInt(4));
 		s.floor = c.getInt(5);
-		s.keywords = c.getString(6);
 
 		return s;
 	}
@@ -231,7 +232,6 @@ public class Database {
 		b.position.y = c.getFloat(3);
 		b.number = c.getInt(4);
 		b.label = c.getString(5);
-		b.keywords = c.getString(6);
 
 		return b;
 	}

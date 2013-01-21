@@ -5,50 +5,55 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 import lamaro.gipsolet.R;
 import lamaro.gipsolet.data.Database;
 import lamaro.gipsolet.model.Building;
 import lamaro.gipsolet.model.Room;
 import lamaro.gipsolet.model.Service;
+import lamaro.gipsolet.service.GeolocationService;
+import lamaro.gipsolet.service.GeolocationServiceBinder;
+import lamaro.gipsolet.service.GeolocationServiceListener;
+import lamaro.gipsolet.service.IGeolocationService;
 import mandarine.boussole.RoutingResultHandler;
 import mandarine.boussole.RoutingTask;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.PointF;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.BackgroundColorSpan;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements RoutingResultHandler {
+public class MainActivity extends Activity implements RoutingResultHandler, GeolocationServiceListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// Creation
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		// Tests !
-//		Database db = new Database(this);
-//		db.open();
-//
-//		List<Building> buildings = db.getBuildings();
-//
-//		PointF p = new PointF(43.634654f, 3.862047f);
-//		for (Building b : buildings) {
-//			System.out.println(b.id + " " + b.isInBuilding(p));
-//		}
-//
-//		RoutingTask r = new RoutingTask(this);
-//		r.execute(new PointF(43.614799f, 3.886697f), new PointF(43.631983f, 3.861178f));
-//		
-//		db.close();
+
+		ServiceConnection connection = new ServiceConnection() {
+
+			@Override
+			public void onServiceDisconnected(ComponentName name) {
+
+			}
+
+			@Override
+			public void onServiceConnected(ComponentName name, IBinder binder) {
+				IGeolocationService service = ((GeolocationServiceBinder) binder).getService();
+				service.addListener(MainActivity.this);
+			}
+		};
+
+		startService(new Intent(this, GeolocationService.class));
+		bindService(new Intent(this, GeolocationService.class), connection, Context.BIND_AUTO_CREATE);
 	}
-	
+
 	public void onClickSearchEditText(View v) {
 		onSearchRequested();
 	}
@@ -68,5 +73,10 @@ public class MainActivity extends Activity implements RoutingResultHandler {
 	@Override
 	public void processRoutingResult(JSONArray routes) {
 		System.out.println(routes.toString());
+	}
+
+	@Override
+	public void positionChanged(boolean inCampus, Building insideOfBuilding) {
+		System.out.println(inCampus);
 	}
 }
