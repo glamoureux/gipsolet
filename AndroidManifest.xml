@@ -36,14 +36,22 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+        <activity
+            android:name="lamaro.gipsolet.activity.ViewEntityActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
 
         <!-- Provides search suggestions for words and their definitions. -->
-        <provider android:name="lamaro.gipsolet.data.Provider"
-                  android:authorities="lamaro.gipsolet.data.Provider" />
-        
+        <provider
+            android:name="lamaro.gipsolet.data.Provider"
+            android:authorities="lamaro.gipsolet.data.Provider" />
+
         <meta-data
             android:name="android.app.default_searchable"
             android:value="lamaro.gipsolet.activity.SearchableActivity" />
+
     </application>
 
 </manifest>

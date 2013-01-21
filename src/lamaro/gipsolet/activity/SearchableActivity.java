@@ -1,23 +1,23 @@
 package lamaro.gipsolet.activity;
 
-import java.util.List;
-
 import lamaro.gipsolet.R;
 import lamaro.gipsolet.data.Adapter;
-import lamaro.gipsolet.data.Database;
-import lamaro.gipsolet.model.CampusEntity;
 import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class SearchableActivity extends ListActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		setListAdapter(new Adapter(this, R.layout.campus_entity_search_item));
 		handleIntent(getIntent());
 	}
@@ -44,9 +44,14 @@ public class SearchableActivity extends ListActivity {
 		System.out.println(intent.getAction());
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String query = intent.getStringExtra(SearchManager.QUERY);
-			doMySearch(query);
+			Log.v("Searchable", query);
+			//doMySearch(query);
 		} else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
 			System.out.println("DATA = " + intent.getDataString());
+			
+			Intent intent1 = new Intent(this, ViewEntityActivity.class);
+			intent1.putExtra("id", intent.getDataString());
+			startActivity(intent1);
 		}
 	}
 
