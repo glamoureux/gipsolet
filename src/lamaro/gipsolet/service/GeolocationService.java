@@ -77,16 +77,19 @@ public class GeolocationService extends IntentService implements IGeolocationSer
 
 		if (oldInsideOfBuilding != insideOfBuilding) {
 			if (insideOfBuilding == null) {
-				showNotification(getBaseContext().getString(R.string.location_changed),
-						getBaseContext().getString(R.string.location_changed_quit_building, oldInsideOfBuilding.label));
+				showNotification(
+						getBaseContext().getString(R.string.location_changed),
+						getBaseContext().getString(R.string.location_changed_quit_building,
+								oldInsideOfBuilding.getName()));
 			} else {
 				showNotification(getBaseContext().getString(R.string.location_changed),
-						getBaseContext().getString(R.string.location_changed_enter_building, insideOfBuilding.label));
+						getBaseContext()
+								.getString(R.string.location_changed_enter_building, insideOfBuilding.getName()));
 			}
 		}
 
 		for (GeolocationServiceListener l : listeners) {
-			l.positionChanged(onCampus, oldInsideOfBuilding);
+			l.positionChanged(onCampus, insideOfBuilding);
 		}
 	}
 
@@ -188,6 +191,11 @@ public class GeolocationService extends IntentService implements IGeolocationSer
 	@Override
 	public void addListener(GeolocationServiceListener listener) {
 		listeners.add(listener);
+	}
+	
+	@Override
+	public void removeListener(GeolocationServiceListener listener) {
+		listeners.remove(listener);
 	}
 
 	private class Listener implements LocationListener {

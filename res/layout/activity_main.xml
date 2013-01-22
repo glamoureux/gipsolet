@@ -74,19 +74,18 @@
             style="@style/ButtonMenu"
             android:drawableRight="@drawable/room"
             android:text="@string/rooms" />
-        
+
         <Button
             android:id="@+id/menuButtonServices"
             style="@style/ButtonMenu"
             android:drawableRight="@drawable/service"
             android:text="@string/services" />
-        
+
         <Button
             android:id="@+id/menuButtonMap"
             style="@style/ButtonMenu"
             android:drawableRight="@drawable/location_map"
             android:text="@string/map" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -101,8 +100,20 @@
             android:drawableLeft="@drawable/location_place"
             android:gravity="left|center_vertical"
             android:text="@string/not_in_triolet"
+            android:onClick=""
             android:textSize="13sp" />
 
+        <Button
+            android:id="@+id/in_triolet"
+            style="@style/SimpleButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/location_place"
+            android:gravity="left|center_vertical"
+            android:text="@string/not_in_triolet"
+            android:textSize="13sp"
+            android:onClick=""
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>

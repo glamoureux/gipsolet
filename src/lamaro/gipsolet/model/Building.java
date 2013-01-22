@@ -10,11 +10,11 @@ public class Building implements CampusEntity {
 	public Integer number;
 	public String label;
 	public String keywords;
-	
+
 	public boolean isInBuilding(PointF p) {
 		return zone.contains(p);
 	}
-	
+
 	@Override
 	public String toString() {
 		String result = id + "\n";
@@ -23,15 +23,15 @@ public class Building implements CampusEntity {
 		result += "Batiment " + number + "\n";
 		result += label + "\n";
 		result += keywords + "\n";
-		
+
 		return result;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return id * "building".hashCode();
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		return o.hashCode() == hashCode();
@@ -44,7 +44,13 @@ public class Building implements CampusEntity {
 
 	@Override
 	public String getName() {
-		return label;
+		if (number == 0) {
+			return label;
+		} else if (label.length() > 0) {
+			return number + " (" + label + ")";
+		} else {
+			return number.toString();
+		}
 	}
 
 	@Override

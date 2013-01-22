@@ -12,7 +12,8 @@
         <item quantity="one">%1$d result for \"%2$s\": </item>
         <item quantity="other">%1$d results for \"%2$s\": </item>
     </plurals>
-
+	
+    <string name="current_location">You\'re in the building %s</string>
     <string name="no_results">No results found for \"%s\"</string>
     <string name="search_activity">Gipsolet: Global search</string>
     <string name="buildings">Buildings</string>

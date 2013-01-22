@@ -3,10 +3,7 @@ package lamaro.gipsolet.activity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import lamaro.gipsolet.R;
-import lamaro.gipsolet.data.Database;
 import lamaro.gipsolet.model.Building;
-import lamaro.gipsolet.model.Room;
-import lamaro.gipsolet.model.Service;
 import lamaro.gipsolet.service.GeolocationService;
 import lamaro.gipsolet.service.GeolocationServiceBinder;
 import lamaro.gipsolet.service.GeolocationServiceListener;
@@ -19,10 +16,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
 
 public class MainActivity extends Activity implements RoutingResultHandler, GeolocationServiceListener {
 
@@ -33,16 +29,19 @@ public class MainActivity extends Activity implements RoutingResultHandler, Geol
 		setContentView(R.layout.activity_main);
 
 		ServiceConnection connection = new ServiceConnection() {
-
+			IGeolocationService service;
+			
 			@Override
 			public void onServiceDisconnected(ComponentName name) {
-
+				service.removeListener(MainActivity.this);
 			}
 
 			@Override
 			public void onServiceConnected(ComponentName name, IBinder binder) {
-				IGeolocationService service = ((GeolocationServiceBinder) binder).getService();
+				service = ((GeolocationServiceBinder) binder).getService();
 				service.addListener(MainActivity.this);
+				
+				positionChanged(service.isOnCampus(), service.getInsideOfBuilding());
 			}
 		};
 
@@ -73,6 +72,23 @@ public class MainActivity extends Activity implements RoutingResultHandler, Geol
 
 	@Override
 	public void positionChanged(boolean inCampus, Building insideOfBuilding) {
-		System.out.println(inCampus);
+		Button inTriolet = (Button) findViewById(R.id.in_triolet);
+		Button notInTriolet = (Button) findViewById(R.id.not_in_triolet);
+		
+		if (inCampus) {
+			inTriolet.setVisibility(View.VISIBLE);
+			notInTriolet.setVisibility(View.GONE);
+			
+			
+			if (insideOfBuilding != null) {
+				inTriolet.setText(getString(R.string.current_location, insideOfBuilding.getName()));
+			} else {
+				inTriolet.setText(getString(R.string.in_triolet));
+			}
+ 		} else {
+ 			System.out.println("la");
+			inTriolet.setVisibility(View.GONE);
+			notInTriolet.setVisibility(View.VISIBLE);
+		}
 	}
 }

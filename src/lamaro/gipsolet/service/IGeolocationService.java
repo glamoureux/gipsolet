@@ -9,4 +9,5 @@ public interface IGeolocationService {
 	Building getInsideOfBuilding();
 	
 	void addListener(GeolocationServiceListener listener);
+	void removeListener(GeolocationServiceListener listener);
 }

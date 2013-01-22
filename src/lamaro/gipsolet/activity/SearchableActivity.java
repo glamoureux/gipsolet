@@ -9,10 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
-import android.util.Log;
-import android.view.View;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class SearchableActivity extends ListActivity {
