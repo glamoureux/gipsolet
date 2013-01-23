@@ -29,5 +29,13 @@
     <string name="location_changed_enter_building">You just enter in the building %s</string>
     <string name="location_changed_quit_campus">You just left the Triolet campus.</string>
     <string name="location_changed_quit_building">You just left the building %s.</string>
+    <string name="building">Building</string>
+    <string name="label">Label</string>
+    <string name="assKeywords">Associated keywords</string>
+    <string name="floor">Floor</string>
+    <string name="descr">Description</string>
+    <string name="service">Service</string>
+    <string name="amphi">Hall</string>
+    <string name="room">Room</string>
 
 </resources>

@@ -2,14 +2,18 @@ package lamaro.gipsolet.activity;
 
 import lamaro.gipsolet.R;
 import lamaro.gipsolet.data.CEAdapter;
+import lamaro.gipsolet.data.Database;
 import lamaro.gipsolet.data.Provider;
+import lamaro.gipsolet.model.CampusEntity;
 import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
+import android.view.View;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class SearchableActivity extends ListActivity {
@@ -51,6 +55,17 @@ public class SearchableActivity extends ListActivity {
 			ListAdapter adapter = new CEAdapter(this, R.layout.ce_search_item, cursor, 0);
 			setListAdapter(adapter);
 		}
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		
+		Intent intent = new Intent(this, ViewEntityActivity.class);
+		TextView obj = (TextView) v.findViewById(R.id.label);
+		System.out.println("OBJET SELECTIONNE : " + obj.getText());
+		intent.putExtra("id", obj.toString());
+		startActivity(intent);
 	}
 
 	private void handleIntent(Intent intent) {
