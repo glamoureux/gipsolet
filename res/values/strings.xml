@@ -16,6 +16,7 @@
     <string name="current_location">You\'re in the building %s</string>
     <string name="no_results">No results found for \"%s\"</string>
     <string name="search_activity">Gipsolet: Global search</string>
+    <string name="building">Building</string>
     <string name="buildings">Buildings</string>
     <string name="rooms">Rooms</string>
     <string name="services">Services</string>
@@ -29,7 +30,6 @@
     <string name="location_changed_enter_building">You just enter in the building %s</string>
     <string name="location_changed_quit_campus">You just left the Triolet campus.</string>
     <string name="location_changed_quit_building">You just left the building %s.</string>
-    <string name="building">Building</string>
     <string name="label">Label</string>
     <string name="assKeywords">Associated keywords</string>
     <string name="floor">Floor</string>

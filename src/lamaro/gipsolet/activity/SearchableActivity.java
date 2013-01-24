@@ -2,9 +2,7 @@ package lamaro.gipsolet.activity;
 
 import lamaro.gipsolet.R;
 import lamaro.gipsolet.data.CEAdapter;
-import lamaro.gipsolet.data.Database;
 import lamaro.gipsolet.data.Provider;
-import lamaro.gipsolet.model.CampusEntity;
 import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Intent;
