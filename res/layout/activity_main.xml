@@ -100,7 +100,7 @@
             android:drawableLeft="@drawable/location_place"
             android:gravity="left|center_vertical"
             android:text="@string/not_in_triolet"
-            android:onClick=""
+            android:onClick="goCampus"
             android:textSize="13sp" />
 
         <Button

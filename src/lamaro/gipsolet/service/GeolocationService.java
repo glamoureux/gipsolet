@@ -38,6 +38,7 @@ public class GeolocationService extends IntentService implements IGeolocationSer
 
 	private boolean onCampus;
 	private Building insideOfBuilding;
+	private Location currentLocation;
 
 	public GeolocationService() {
 		super("lamaro.gipsolet.service.GeolocationService");
@@ -102,6 +103,11 @@ public class GeolocationService extends IntentService implements IGeolocationSer
 	public Building getInsideOfBuilding() {
 		return insideOfBuilding;
 	}
+	
+	@Override
+	public Location getCurrentLocation() {
+		return currentLocation;
+	}
 
 	private void initializeLastKnownPosition() {
 		Location lastGPSLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -120,7 +126,7 @@ public class GeolocationService extends IntentService implements IGeolocationSer
 				closest = lastNetworkLocation;
 			}
 		}
-
+		
 		if (closest != null) {
 			saveLocation(closest);
 		}
@@ -139,6 +145,8 @@ public class GeolocationService extends IntentService implements IGeolocationSer
 				}
 			}
 		}
+		
+		currentLocation = location;
 	}
 
 	private static Polygon buildZoneTriolet() {

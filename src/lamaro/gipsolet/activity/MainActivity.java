@@ -1,14 +1,12 @@
 package lamaro.gipsolet.activity;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import lamaro.gipsolet.R;
 import lamaro.gipsolet.model.Building;
 import lamaro.gipsolet.service.GeolocationService;
 import lamaro.gipsolet.service.GeolocationServiceBinder;
 import lamaro.gipsolet.service.GeolocationServiceListener;
 import lamaro.gipsolet.service.IGeolocationService;
-import mandarine.boussole.RoutingResultHandler;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.app.Activity;
@@ -20,16 +18,18 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends Activity implements RoutingResultHandler, GeolocationServiceListener {
-
+public class MainActivity extends Activity implements GeolocationServiceListener {
+	
+	ServiceConnection connection;
+	IGeolocationService service;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// Creation
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		ServiceConnection connection = new ServiceConnection() {
-			IGeolocationService service;
+		connection = new ServiceConnection() {
 			
 			@Override
 			public void onServiceDisconnected(ComponentName name) {
@@ -61,16 +61,6 @@ public class MainActivity extends Activity implements RoutingResultHandler, Geol
 	}
 
 	@Override
-	public void processGeoJSONResult(JSONObject json) {
-		System.out.println(json.toString());
-	}
-
-	@Override
-	public void processRoutingResult(JSONArray routes) {
-		System.out.println(routes.toString());
-	}
-
-	@Override
 	public void positionChanged(boolean inCampus, Building insideOfBuilding) {
 		Button inTriolet = (Button) findViewById(R.id.in_triolet);
 		Button notInTriolet = (Button) findViewById(R.id.not_in_triolet);
@@ -86,9 +76,24 @@ public class MainActivity extends Activity implements RoutingResultHandler, Geol
 				inTriolet.setText(getString(R.string.in_triolet));
 			}
  		} else {
- 			System.out.println("la");
 			inTriolet.setVisibility(View.GONE);
 			notInTriolet.setVisibility(View.VISIBLE);
 		}
+	}
+	
+	public void goCampus(View view) {
+		Intent goCampus = new Intent(this, GoCampusActivity.class);
+		
+		Location currentLocation = service.getCurrentLocation();
+		System.out.println(currentLocation);
+		goCampus.putExtra(GoCampusActivity.LATITUDE_KEY, (float) currentLocation.getLatitude());
+		goCampus.putExtra(GoCampusActivity.LONGITUDE_KEY, (float) currentLocation.getLongitude());
+		
+		startActivity(goCampus);
+	}
+	
+	@Override
+	public void onDestroy() {
+		unbindService(connection);
 	}
 }

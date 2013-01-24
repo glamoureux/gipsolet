@@ -10,7 +10,6 @@ import misc.CSVReader;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -92,7 +91,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 				values = new ContentValues();
 				values.put(Database.KEYWORDS_WORDS, line[6] + " " + line[4] + " " + line[5]);
-				values.put(Database.KEYWORDS_NAME, line[5]);
+				if (line[4].length() == 0) {
+					values.put(Database.KEYWORDS_NAME, "Bâtiment " + line[5]);	
+				} else if (line[5].length() > 0) {
+					values.put(Database.KEYWORDS_NAME, "Bâtiment " + line[4] + " (" + line[5] + ")");					
+				} else {
+					values.put(Database.KEYWORDS_NAME, "Bâtiment " + line[4]);
+				}
 				values.put(Database.KEYWORDS_ICON, R.drawable.building);
 				values.put(Database.KEYWORDS_TYPE, "building");
 				values.put(Database.KEYWORDS_ID, line[0]);
