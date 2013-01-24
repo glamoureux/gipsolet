@@ -67,19 +67,22 @@
             android:id="@+id/menuButtonBuildings"
             style="@style/ButtonMenu"
             android:drawableRight="@drawable/building"
-            android:text="@string/buildings" />
+            android:text="@string/buildings"
+            android:onClick="onClickList" />
 
         <Button
             android:id="@+id/menuButtonRooms"
             style="@style/ButtonMenu"
             android:drawableRight="@drawable/room"
-            android:text="@string/rooms" />
+            android:text="@string/rooms" 
+        	android:onClick="onClickList" />
 
         <Button
             android:id="@+id/menuButtonServices"
             style="@style/ButtonMenu"
             android:drawableRight="@drawable/service"
-            android:text="@string/services" />
+            android:text="@string/services" 
+            android:onClick="onClickList" />
 
         <Button
             android:id="@+id/menuButtonMap"

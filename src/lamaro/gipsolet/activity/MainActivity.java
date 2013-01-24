@@ -3,6 +3,7 @@ package lamaro.gipsolet.activity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import lamaro.gipsolet.R;
+import lamaro.gipsolet.data.Database;
 import lamaro.gipsolet.model.Building;
 import lamaro.gipsolet.service.GeolocationService;
 import lamaro.gipsolet.service.GeolocationServiceBinder;
@@ -51,6 +52,18 @@ public class MainActivity extends Activity implements RoutingResultHandler, Geol
 
 	public void onClickSearchEditText(View v) {
 		onSearchRequested();
+	}
+	
+	public void onClickList(View v) {
+		Intent intent = new Intent(this, ListEntitiesActivity.class);
+		if (v.getId() == R.id.menuButtonBuildings)
+			intent.putExtra("entityType", Database.TABLE_BUILDINGS);
+		if (v.getId() == R.id.menuButtonRooms)
+			intent.putExtra("entityType", Database.TABLE_ROOMS);
+		if (v.getId() == R.id.menuButtonServices)
+			intent.putExtra("entityType", Database.TABLE_SERVICES);
+		
+		startActivity(intent);
 	}
 
 	@Override

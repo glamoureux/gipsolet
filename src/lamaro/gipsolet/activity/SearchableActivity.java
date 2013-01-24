@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.widget.CursorAdapter;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -61,10 +62,9 @@ public class SearchableActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		
+		TextView obj = (TextView) v.findViewById(R.id.hideLabel);
 		Intent intent = new Intent(this, ViewEntityActivity.class);
-		TextView obj = (TextView) v.findViewById(R.id.label);
-		System.out.println("OBJET SELECTIONNE : " + obj.getText());
-		intent.putExtra("id", obj.toString());
+		intent.putExtra("id", obj.getText());
 		startActivity(intent);
 	}
 
@@ -75,8 +75,6 @@ public class SearchableActivity extends ListActivity {
 			String query = intent.getStringExtra(SearchManager.QUERY);
 			doMySearch(query);
 		} else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
-			System.out.println("DATA = " + intent.getDataString());
-			
 			Intent intent1 = new Intent(this, ViewEntityActivity.class);
 			intent1.putExtra("id", intent.getDataString());
 			startActivity(intent1);
