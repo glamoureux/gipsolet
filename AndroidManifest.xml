@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="lamaro.gipsolet"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="16" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
+    <uses-permission android:name="android.permission.LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="lamaro.gipsolet.activity.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="lamaro.gipsolet.activity.SearchableActivity"
+            android:exported="false"
+            android:label="@string/search_activity"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name="lamaro.gipsolet.activity.ViewEntityActivity"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="lamaro.gipsolet.activity.ListEntitiesActivity"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        <activity android:name="lamaro.gipsolet.activity.GoCampusActivity" >
+        </activity>
+
+        <!-- Provides search suggestions for words and their definitions. -->
+        <provider
+            android:name="lamaro.gipsolet.data.Provider"
+            android:authorities="lamaro.gipsolet.data.Provider"
+            android:exported="false" />
+
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value="lamaro.gipsolet.activity.SearchableActivity" />
+
+        <service android:name="lamaro.gipsolet.service.GeolocationService" />
+    </application>
+
+</manifest>
