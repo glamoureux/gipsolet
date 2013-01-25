@@ -7,24 +7,51 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="16" />
+    
+    <permission
+		android:name="lamaro.gipsolet.activity.permission.MAPS_RECEIVE"
+		android:protectionLevel="signature" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_GPS" />
     <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
     <uses-permission android:name="android.permission.LOCATION" />
+    <uses-permission android:name="lamaro.gipsolet.activity.permission.MAPS_RECEIVE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+	
+	<uses-feature
+		android:glEsVersion="0x00020000"
+		android:required="true" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value="lamaro.gipsolet.activity.SearchableActivity" />
+        <meta-data
+    		android:name="com.google.android.maps.v2.API_KEY"
+    		android:value="AIzaSyDecnRZpJccJCAeuVK6WtA2gWSAjGFzk00"/>
+        
+        <!-- Provides search suggestions for words and their definitions. -->
+        <provider
+            android:name="lamaro.gipsolet.data.Provider"
+            android:authorities="lamaro.gipsolet.data.Provider"
+            android:exported="false" />
+
+        <service android:name="lamaro.gipsolet.service.GeolocationService" />
+        
         <activity
             android:name="lamaro.gipsolet.activity.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -36,7 +63,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -55,20 +81,15 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-        <activity android:name="lamaro.gipsolet.activity.GoCampusActivity" >
+        <activity
+            android:name="lamaro.gipsolet.activity.GoCampusActivity" >
         </activity>
-
-        <!-- Provides search suggestions for words and their definitions. -->
-        <provider
-            android:name="lamaro.gipsolet.data.Provider"
-            android:authorities="lamaro.gipsolet.data.Provider"
-            android:exported="false" />
-
-        <meta-data
-            android:name="android.app.default_searchable"
-            android:value="lamaro.gipsolet.activity.SearchableActivity" />
-
-        <service android:name="lamaro.gipsolet.service.GeolocationService" />
+        <activity
+            android:name="lamaro.gipsolet.activity.MapActivity"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
     </application>
-
 </manifest>

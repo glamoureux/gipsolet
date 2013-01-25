@@ -28,7 +28,7 @@ public class ListEntitiesActivity extends ListActivity {
 		handleIntent(intent);
 	}
 	
-	private void handleIntent(Intent intent) {		
+	private void handleIntent(Intent intent) {
 		
 		String extra = intent.getStringExtra("entityType");
 		//listEntities(extra);

@@ -5,14 +5,14 @@
     <string name="app_description">Geolocation in Triolet campus</string>
     <string name="search_hint">Search in campus</string>
     <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Settings</string>
     <string name="icon">icon</string>
+    <string name="menu_settings">Menu Settings</string>
 
     <plurals name="search_results">
         <item quantity="one">%1$d result for \"%2$s\": </item>
         <item quantity="other">%1$d results for \"%2$s\": </item>
     </plurals>
-	
+
     <string name="current_location">You\'re in the building %s</string>
     <string name="no_results">No results found for \"%s\"</string>
     <string name="search_activity">Gipsolet: Global search</string>
@@ -38,5 +38,4 @@
     <string name="amphi">Hall</string>
     <string name="room">Room</string>
     <string name="entity">entity</string>
-
 </resources>
