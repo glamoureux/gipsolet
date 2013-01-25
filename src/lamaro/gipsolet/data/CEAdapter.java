@@ -23,6 +23,11 @@ public class CEAdapter extends ResourceCursorAdapter {
 				cursor.getInt(cursor.getColumnIndexOrThrow(Database.KEYWORDS_ICON)));
 		icon.setBounds(0, 0, 48, 48);
 		label.setCompoundDrawables(icon, null, null, null);
+		
+		TextView hideLabel = (TextView) view.findViewById(R.id.hideLabel);
+		String hideStr = cursor.getString(cursor.getColumnIndexOrThrow(Database.KEYWORDS_TYPE));
+		hideStr += "/" + cursor.getString(cursor.getColumnIndexOrThrow(Database.KEYWORDS_ID));		
+		hideLabel.setText(hideStr);
 	}
 
 }

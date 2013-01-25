@@ -37,4 +37,5 @@
     <string name="service">Service</string>
     <string name="amphi">Amphi</string>
     <string name="room">Salle</string>
+    <string name="entity">entité</string>
 </resources>

@@ -168,6 +168,32 @@ public class Database {
 
 		return result;
 	}
+	
+	public Cursor getCursorRooms() {
+		return helper.getReadableDatabase().query("rooms", null, null, null, null, null, "id");
+	}
+	
+	public List<Room> getRooms() {
+		Cursor c = getCursorRooms();
+
+		List<Room> result = cursorToRooms(c);
+		c.close();
+
+		return result;
+	}
+	
+	public Cursor getCursorServices() {
+		return helper.getReadableDatabase().query("services", null, null, null, null, null, "id");
+	}
+	
+	public List<Service> getServices() {
+		Cursor c = getCursorServices();
+
+		List<Service> result = cursorToServices(c);
+		c.close();
+
+		return result;
+	}
 
 	private List<Service> cursorToServices(Cursor c) {
 		List<Service> result = new ArrayList<Service>(c.getCount());
