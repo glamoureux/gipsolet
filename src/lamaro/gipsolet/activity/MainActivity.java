@@ -45,9 +45,10 @@ public class MainActivity extends Activity implements GeolocationServiceListener
 				positionChanged(service.isOnCampus(), service.getInsideOfBuilding());
 			}
 		};
-
+/*
 		startService(new Intent(this, GeolocationService.class));
 		bindService(new Intent(this, GeolocationService.class), connection, Context.BIND_AUTO_CREATE);
+*/
 	}
 
 	public void onClickSearchEditText(View v) {
@@ -56,6 +57,7 @@ public class MainActivity extends Activity implements GeolocationServiceListener
 	
 	public void onClickList(View v) {
 		Intent intent = new Intent(this, ListEntitiesActivity.class);
+		
 		if (v.getId() == R.id.menuButtonBuildings)
 			intent.putExtra("entityType", Database.TABLE_BUILDINGS);
 		if (v.getId() == R.id.menuButtonRooms)
@@ -64,6 +66,14 @@ public class MainActivity extends Activity implements GeolocationServiceListener
 			intent.putExtra("entityType", Database.TABLE_SERVICES);
 		
 		startActivity(intent);
+	}
+	
+	public void onClickButtonMap(View v) {
+		if (v.getId() == R.id.menuButtonMap) {
+			Intent intent = new Intent(this, MapActivity.class);
+			
+			startActivity(intent);
+		}
 	}
 
 	@Override
@@ -107,6 +117,7 @@ public class MainActivity extends Activity implements GeolocationServiceListener
 	
 	@Override
 	public void onDestroy() {
-		unbindService(connection);
+		super.onDestroy();
+		//unbindService(connection);
 	}
 }

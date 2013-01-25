@@ -88,7 +88,8 @@
             android:id="@+id/menuButtonMap"
             style="@style/ButtonMenu"
             android:drawableRight="@drawable/location_map"
-            android:text="@string/map" />
+            android:text="@string/map"
+            android:onClick="onClickButtonMap"/>
     </LinearLayout>
 
     <LinearLayout
