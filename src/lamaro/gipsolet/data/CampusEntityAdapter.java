@@ -22,7 +22,7 @@ public class CampusEntityAdapter extends BaseAdapter {
 	    	
 	private LayoutInflater inflater;
 	
-	public CampusEntityAdapter(Context context, List<? extends CampusEntity> list) {
+	public CampusEntityAdapter(Context context, List<CampusEntity> list) {
 		CEs = list;
 		this.context = context;
 		inflater = LayoutInflater.from(context);
@@ -48,7 +48,6 @@ public class CampusEntityAdapter extends BaseAdapter {
 		View rowView = inflater.inflate(R.layout.ce_search_item, viewGroup, false);
 		TextView label = (TextView) rowView.findViewById(R.id.label);
 		CampusEntity ce = (CampusEntity) getItem(position);
-		System.out.println("CLASS : " + ce.getClass());
 		if (ce.getClass().getName().contains("Building"))
 			label.setText(context.getString(R.string.building) + " " + ce.getName());
 		else if (ce.getClass().getName().contains("Service"))

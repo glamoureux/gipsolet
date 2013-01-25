@@ -28,18 +28,16 @@ public class ListEntitiesActivity extends ListActivity {
 		handleIntent(intent);
 	}
 	
-	private void handleIntent(Intent intent) {
-		
-		String extra = intent.getStringExtra("entityType");
-		//listEntities(extra);
+	private void handleIntent(Intent intent) {		
+		String extra = intent.getStringExtra("entityType");	
 		
 		Database db = new Database(this);
 		if (extra.contains(Database.TABLE_BUILDINGS)) {
-			listEntities(db.getBuildings());
+			listEntities((List) db.getBuildings(), Database.TABLE_BUILDINGS);
 		} else if (extra.contains(Database.TABLE_ROOMS)) {
-			listEntities(db.getRooms());
+			listEntities((List) db.getRooms(), Database.TABLE_ROOMS);
 		} else if (extra.contains(Database.TABLE_SERVICES)) {
-			listEntities(db.getServices());
+			listEntities((List) db.getServices(), Database.TABLE_SERVICES);
 		}		
 	}
 	
@@ -53,15 +51,15 @@ public class ListEntitiesActivity extends ListActivity {
 		startActivity(intent);
 	}
 	
-	private void listEntities(List<? extends CampusEntity> ces) {
+	private void listEntities(List<CampusEntity> ces, String type) {
 		TextView resultText = (TextView) findViewById(R.id.text_result);
 		if (ces == null) {
-			resultText.setText(getString(R.string.no_results, new Object[] { getString(R.string.entity) }));
+			resultText.setText(getString(R.string.no_results, new Object[] { type }));
 		} else {
 			// Display the number of results
 			int count = ces.size();
 			String countString = getResources().getQuantityString(R.plurals.search_results, count,
-					new Object[] { count, getString(R.string.entity) });
+					new Object[] { count, type });
 			resultText.setText(countString);
 
 			// Create a simple cursor adapter for the definitions and apply them

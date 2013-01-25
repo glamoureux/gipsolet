@@ -38,4 +38,5 @@
     <string name="amphi">Amphi</string>
     <string name="room">Salle</string>
     <string name="entity">entité</string>
+    <string name="buildingsEntities">Liste des entités associées</string>
 </resources>
