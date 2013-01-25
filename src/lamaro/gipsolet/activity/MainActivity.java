@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements GeolocationServiceListener
 		Intent goCampus = new Intent(this, GoCampusActivity.class);
 		
 		Location currentLocation = service.getCurrentLocation();
-		System.out.println(currentLocation);
+
 		goCampus.putExtra(GoCampusActivity.LATITUDE_KEY, (float) currentLocation.getLatitude());
 		goCampus.putExtra(GoCampusActivity.LONGITUDE_KEY, (float) currentLocation.getLongitude());
 		
