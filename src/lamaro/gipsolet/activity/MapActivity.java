@@ -1,5 +1,7 @@
 package lamaro.gipsolet.activity;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
@@ -11,10 +13,13 @@ import com.google.android.gms.maps.model.LatLngBounds.Builder;
 import com.google.android.gms.maps.model.PolygonOptions;
 
 import lamaro.gipsolet.R;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.AttributeSet;
+import android.view.View;
 
 public class MapActivity extends FragmentActivity {
 	
@@ -37,6 +42,13 @@ public class MapActivity extends FragmentActivity {
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
         handleIntent();
+        
+        System.out.println(ConnectionResult.SUCCESS);
+        System.out.println(ConnectionResult.SERVICE_MISSING);
+        System.out.println(ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED);
+        System.out.println(ConnectionResult.SERVICE_DISABLED);
+        System.out.println(ConnectionResult.SERVICE_INVALID);
+        System.out.println("=> " + GooglePlayServicesUtil.isGooglePlayServicesAvailable(this));
         
         map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
         map.addPolygon(campus);

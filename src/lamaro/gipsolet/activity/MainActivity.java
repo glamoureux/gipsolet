@@ -45,10 +45,9 @@ public class MainActivity extends Activity implements GeolocationServiceListener
 				positionChanged(service.isOnCampus(), service.getInsideOfBuilding());
 			}
 		};
-/*
+
 		startService(new Intent(this, GeolocationService.class));
 		bindService(new Intent(this, GeolocationService.class), connection, Context.BIND_AUTO_CREATE);
-*/
 	}
 
 	public void onClickSearchEditText(View v) {
@@ -117,7 +116,7 @@ public class MainActivity extends Activity implements GeolocationServiceListener
 	
 	@Override
 	public void onDestroy() {
+		unbindService(connection);
 		super.onDestroy();
-		//unbindService(connection);
 	}
 }
