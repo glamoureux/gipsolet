@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:background="@color/white"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
@@ -103,8 +103,9 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/location_place"
             android:gravity="left|center_vertical"
-            android:text="@string/not_in_triolet"
+            android:minHeight="0dp"
             android:onClick="goCampus"
+            android:text="@string/not_in_triolet"
             android:textSize="13sp" />
 
         <Button

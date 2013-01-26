@@ -39,4 +39,6 @@
     <string name="room">Room</string>
     <string name="entity">entity</string>
     <string name="buildingsEntities">List of all associated entities</string>
+    
+    <string name="map_bug_on_avd">The emulator doesn\'t handle Google Maps</string>
 </resources>

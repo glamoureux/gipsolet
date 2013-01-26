@@ -39,4 +39,6 @@
     <string name="room">Salle</string>
     <string name="entity">entité</string>
     <string name="buildingsEntities">Liste des entités associées</string>
+    
+    <string name="map_bug_on_avd">L\'émulateur ne gère pas Google Maps</string>
 </resources>
