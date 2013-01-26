@@ -16,6 +16,7 @@ import lamaro.gipsolet.R;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
@@ -38,7 +39,6 @@ public class MapActivity extends FragmentActivity {
 		setContentView(R.layout.map);
 		handleIntent();
 
-		System.out.println(ConnectionResult.SUCCESS == GooglePlayServicesUtil.isGooglePlayServicesAvailable(this));
 		if (ConnectionResult.SUCCESS == GooglePlayServicesUtil.isGooglePlayServicesAvailable(this)) {
 			map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
 			map.addPolygon(campus);
@@ -55,6 +55,11 @@ public class MapActivity extends FragmentActivity {
 			});
 		} else {
 			Toast.makeText(this, R.string.map_bug_on_avd, Toast.LENGTH_SHORT).show();
+			double campusLatitude = 43.632775;
+			double campusLongitude = 3.86516;
+			
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + campusLatitude + "," + campusLongitude + "?z=16")));
+
 			finish();
 		}
 	}
