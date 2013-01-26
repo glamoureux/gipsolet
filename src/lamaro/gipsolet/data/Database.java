@@ -210,9 +210,9 @@ public class Database {
 		s.id = c.getInt(0);
 		s.position.x = c.getFloat(1);
 		s.position.y = c.getFloat(2);
-		s.description = c.getString(3);
-		s.building = getBuildingById(c.getInt(4));
-		s.floor = c.getInt(5);
+		s.building = getBuildingById(c.getInt(3));
+		s.floor = c.getInt(4);
+		s.description = c.getString(5);
 
 		return s;
 	}

@@ -16,7 +16,7 @@
         android:textStyle="normal"
         android:color="#ffffff" />
     
-       <TextView
+	<TextView
         android:id="@+id/hideLabel"
         android:layout_width="fill_parent"
         android:layout_height="0sp"

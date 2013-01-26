@@ -1,19 +1,23 @@
 package lamaro.gipsolet.activity;
 
+import java.util.List;
+
 import lamaro.gipsolet.R;
+import lamaro.gipsolet.data.CampusEntityAdapter;
 import lamaro.gipsolet.data.Database;
 import lamaro.gipsolet.model.Building;
 import lamaro.gipsolet.model.CampusEntity;
 import lamaro.gipsolet.model.Room;
 import lamaro.gipsolet.model.Service;
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
-import android.graphics.PointF;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class ViewEntityActivity extends Activity {
+public class ViewEntityActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,8 +32,7 @@ public class ViewEntityActivity extends Activity {
 		handleIntent(intent);
 	}
 	
-	private void handleIntent(Intent intent) {		
-		
+	private void handleIntent(Intent intent) {				
 		String extra = intent.getStringExtra("id");
 		TextView tv = (TextView) findViewById(R.id.entityLabel);
 		
@@ -37,6 +40,7 @@ public class ViewEntityActivity extends Activity {
 		String[] entityType = extra.split("/");
 		CampusEntity entity;
 		String res = "";
+		ListAdapter adapt = null;
 		if (entityType[0].equals("room")) {
 			entity = db.getRoomById(Integer.parseInt(entityType[1]));
 			switch (((Room) entity).type) {
@@ -52,13 +56,20 @@ public class ViewEntityActivity extends Activity {
 			res += getString(R.string.building) + " " + ((Room) entity).building.getName() + "\n";
 			res += getString(R.string.floor) + " " + ((Room) entity).floor + "\n";
 			
-		} else if (entityType[0].equals("building")) {
+		} else if (entityType[0].equals("building")) {			
 			entity = db.getBuildingById(Integer.parseInt(entityType[1]));
 			res += getString(R.string.building) + " " + entity.getName() + "\n";
 			if (!((Building) entity).label.equals(""))
 				res += getString(R.string.label) + " " + ((Building) entity).label + "\n";
 			if (((Building) entity).keywords != null)
 				res += getString(R.string.assKeywords) + " " + ((Building) entity).keywords + "\n";
+			
+			res += getString(R.string.buildingsEntities) + " : \n";
+			List<CampusEntity> entitiesOfBuilding = (List) db.getRoomsOfBuilding((Building) entity);
+			List<CampusEntity> servicesofBuilding = (List) db.getServicesOfBuilding((Building) entity);
+			entitiesOfBuilding.addAll(servicesofBuilding);			
+			
+			adapt = new CampusEntityAdapter(this, entitiesOfBuilding);
 			
 		} else if (entityType[0].equals("service")){
 			entity = db.getServiceById(Integer.parseInt(entityType[1]));
@@ -71,5 +82,15 @@ public class ViewEntityActivity extends Activity {
 				res += getString(R.string.assKeywords) + " " + ((Service) entity).keywords + "\n";
 		}
 		tv.setText(res);		
+		setListAdapter(adapt);
+	}
+	
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		
+		TextView obj = (TextView) v.findViewById(R.id.hideLabel);
+		Intent intent = new Intent(this, ViewEntityActivity.class);
+		intent.putExtra("id", obj.getText());
+		startActivity(intent);
 	}
 }
