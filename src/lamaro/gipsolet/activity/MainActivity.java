@@ -8,6 +8,7 @@ import lamaro.gipsolet.service.GeolocationServiceBinder;
 import lamaro.gipsolet.service.GeolocationServiceListener;
 import lamaro.gipsolet.service.IGeolocationService;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.app.Activity;
@@ -104,14 +105,18 @@ public class MainActivity extends Activity implements GeolocationServiceListener
 	}
 	
 	public void goCampus(View view) {
-		Intent goCampus = new Intent(this, GoCampusActivity.class);
+//		Intent goCampus = new Intent(this, GoCampusActivity.class);
+//		
+//		Location currentLocation = service.getCurrentLocation();
+//
+//		goCampus.putExtra(GoCampusActivity.LATITUDE_KEY, (float) currentLocation.getLatitude());
+//		goCampus.putExtra(GoCampusActivity.LONGITUDE_KEY, (float) currentLocation.getLongitude());
+//		
+//		startActivity(goCampus);
+		double campusLatitude = 43.631362;
+		double campusLongitude = 3.861136;
 		
-		Location currentLocation = service.getCurrentLocation();
-
-		goCampus.putExtra(GoCampusActivity.LATITUDE_KEY, (float) currentLocation.getLatitude());
-		goCampus.putExtra(GoCampusActivity.LONGITUDE_KEY, (float) currentLocation.getLongitude());
-		
-		startActivity(goCampus);
+		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + campusLatitude + "," + campusLongitude)));
 	}
 	
 	@Override
