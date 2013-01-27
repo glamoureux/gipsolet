@@ -75,7 +75,7 @@ public class GeolocationService extends IntentService implements IGeolocationSer
 						getBaseContext().getString(R.string.location_changed_quit_campus));
 			}
 		}
-
+		
 		if (oldInsideOfBuilding != insideOfBuilding) {
 			if (insideOfBuilding == null) {
 				showNotification(
@@ -138,6 +138,7 @@ public class GeolocationService extends IntentService implements IGeolocationSer
 		onCampus = zoneTrioletCampus.contains(position);
 
 		if (onCampus) {
+			insideOfBuilding = null;
 			for (Building b : buildings) {
 				if (b.isInBuilding(position)) {
 					insideOfBuilding = b;
