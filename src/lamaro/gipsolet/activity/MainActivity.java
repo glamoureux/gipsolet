@@ -41,6 +41,7 @@ public class MainActivity extends Activity implements IInsideListener {
 		geolocation.setLocationManager((LocationManager) getSystemService(Context.LOCATION_SERVICE));
 		inside = Inside.getInstance();
 		inside.setContext(getBaseContext());
+		inside.addListener(this);
 
 		connection = new ServiceConnection() {
 
@@ -118,7 +119,11 @@ public class MainActivity extends Activity implements IInsideListener {
 	public void insideStateChanged(boolean onCampus, Building insideOfBuilding) {
 		Button inTriolet = (Button) findViewById(R.id.in_triolet);
 		Button notInTriolet = (Button) findViewById(R.id.not_in_triolet);
-		
+		System.out.print(onCampus + " ");
+		if(insideOfBuilding != null) {
+			System.out.print(insideOfBuilding.getId());
+		}
+		System.out.println();
 		if(onCampus) {
 			inTriolet.setVisibility(View.VISIBLE);
 			notInTriolet.setVisibility(View.GONE);

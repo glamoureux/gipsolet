@@ -58,7 +58,7 @@ public class Inside implements IInside, IGeolocationListener {
 	public void positionChanged(Location location) {
 		boolean onCampus = Campus.onCampus(location);
 		Building insideOfBuilding = null;
-		
+		System.out.println("HELLO");
 		if (onCampus) {
 			insideOfBuilding = null;
 			for (Building building : buildings) {
@@ -70,6 +70,7 @@ public class Inside implements IInside, IGeolocationListener {
 		}
 		
 		for(IInsideListener listener: insideListeners) {
+			System.out.println("PIPO");
 			listener.insideStateChanged(onCampus, insideOfBuilding);
 		}
 	}
