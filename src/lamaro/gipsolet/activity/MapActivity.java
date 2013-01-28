@@ -471,8 +471,6 @@ public class MapActivity extends FragmentActivity implements IGeolocationListene
 	@Override
 	public void positionChanged(Location location) {
 		if(map != null) {
-			location.setLatitude(43.632464);
-			location.setLongitude(3.86415);
 			currentMobileLocation = location;
 			
 			if(firstMobileCampusFocus) {
@@ -528,6 +526,7 @@ public class MapActivity extends FragmentActivity implements IGeolocationListene
 				if(marker.equals(mobile)) {
 					if(setMobileFocus) {
 						refreshMap = true;
+						refreshMobileFocus = true;
 						mobileFocus = !mobileFocus;
 						if(mobileFocus) {
 							map.getUiSettings().setScrollGesturesEnabled(false);
