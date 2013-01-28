@@ -28,16 +28,25 @@ public class ListEntitiesActivity extends ListActivity {
 		handleIntent(intent);
 	}
 	
-	private void handleIntent(Intent intent) {		
-		String extra = intent.getStringExtra("entityType");	
-		
+	private void handleIntent(Intent intent) {
+		Bundle extras = intent.getExtras();
 		Database db = new Database(this);
-		if (extra.contains(Database.TABLE_BUILDINGS)) {
-			listEntities((List) db.getBuildings(), Database.TABLE_BUILDINGS);
-		} else if (extra.contains(Database.TABLE_ROOMS)) {
-			listEntities((List) db.getRooms(), Database.TABLE_ROOMS);
-		} else if (extra.contains(Database.TABLE_SERVICES)) {
-			listEntities((List) db.getServices(), Database.TABLE_SERVICES);
+		if (extras.containsKey("entityType")) {
+			String extra = extras.getString("entityType");	
+			if (extra.contains(Database.TABLE_BUILDINGS)) {
+				listEntities((List) db.getBuildings(), Database.TABLE_BUILDINGS, "");
+			} else if (extra.contains(Database.TABLE_ROOMS)) {
+				listEntities((List) db.getRooms(), Database.TABLE_ROOMS, "");
+			} else if (extra.contains(Database.TABLE_SERVICES)) {
+				listEntities((List) db.getServices(), Database.TABLE_SERVICES, "");
+			}		
+		} else if (extras.containsKey("buildingID") && extras.containsKey("type")) {
+			String id = extras.getString("buildingID");
+			String type = extras.getString("type");
+			if (type.equals("room"))
+				listEntities((List) db.getRoomsOfBuilding(db.getBuildingById(Integer.parseInt(id))), Database.TABLE_ROOMS, id);
+			if (type.equals("service"))
+				listEntities((List) db.getServicesOfBuilding(db.getBuildingById(Integer.parseInt(id))), Database.TABLE_SERVICES, id);
 		}		
 	}
 	
@@ -51,17 +60,20 @@ public class ListEntitiesActivity extends ListActivity {
 		startActivity(intent);
 	}
 	
-	private void listEntities(List<CampusEntity> ces, String type) {
+	private void listEntities(List<CampusEntity> ces, String type, String id) {
 		TextView resultText = (TextView) findViewById(R.id.text_result);
-		if (ces == null) {
+		if (ces == null && !type.equals("")) {
 			resultText.setText(getString(R.string.no_results, new Object[] { type }));
 		} else {
-			// Display the number of results
-			int count = ces.size();
-			String countString = getResources().getQuantityString(R.plurals.search_results, count,
-					new Object[] { count, type });
-			resultText.setText(countString);
-
+			if (type.equals(""))
+				resultText.setVisibility(View.GONE);
+			else {
+				if (type.equals(Database.TABLE_ROOMS))
+					resultText.setText(getString(R.string.buildingRooms, new Object[] { id }));
+				if (type.equals(Database.TABLE_SERVICES))
+					resultText.setText(getString(R.string.buildingServices, new Object[] { id }));
+			}
+				
 			// Create a simple cursor adapter for the definitions and apply them
 			// to the ListView
 			ListAdapter adapter = new CampusEntityAdapter(this, ces);

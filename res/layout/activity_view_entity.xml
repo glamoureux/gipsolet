@@ -3,26 +3,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent" 
 	android:layout_height="match_parent"
+	android:background="@drawable/background"
 	android:orientation="vertical">
+	
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/app_name"
+        android:textColor="@color/gray"
+        android:textSize="35sp" />
 
 	<TextView 
 	    android:id="@+id/entityLabel" 
+	    android:layout_marginTop="15dp"
 	    android:textSize="14sp"
 		android:textStyle="bold" 
-		android:color="#ffffff" 
-		android:layout_width="match_parent"
+		android:textColor="@color/gray"
+		android:background="@color/white"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content" 
+		android:layout_marginLeft="5dp"
 		android:paddingBottom="2dp"
         android:paddingLeft="3dp"
         android:paddingRight="3dp"
         android:paddingTop="2dp"/>
 	
-	<ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:drawSelectorOnTop="false" />
+	<LinearLayout
+	    android:id="@+id/buildingEntitiesList"
+        android:layout_width="214dp"
+        android:layout_height="0dip"
+        android:layout_gravity="right"
+        android:layout_marginTop="30dp"
+        android:layout_weight="0.22"
+        android:gravity="right"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/menuButtonBuildingRooms"
+            style="@style/ButtonMenu"
+            android:drawableRight="@drawable/room"
+            android:text="@string/rooms"
+            android:onClick="onClickList" />
+
+        <Button
+            android:id="@+id/menuButtonBuildingServices"
+            style="@style/ButtonMenu"
+            android:drawableRight="@drawable/service"
+            android:text="@string/services" 
+        	android:onClick="onClickList" />
+    </LinearLayout>
 
 </LinearLayout>

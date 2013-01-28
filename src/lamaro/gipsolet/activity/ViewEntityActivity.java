@@ -9,6 +9,7 @@ import lamaro.gipsolet.model.Building;
 import lamaro.gipsolet.model.CampusEntity;
 import lamaro.gipsolet.model.Room;
 import lamaro.gipsolet.model.Service;
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +18,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ViewEntityActivity extends ListActivity {
+public class ViewEntityActivity extends Activity {
+	private String entityID;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,7 +44,9 @@ public class ViewEntityActivity extends ListActivity {
 		CampusEntity entity;
 		String res = "";
 		ListAdapter adapt = null;
+		entityID = entityType[1];
 		if (entityType[0].equals("room")) {
+			findViewById(R.id.buildingEntitiesList).setVisibility(View.GONE);
 			entity = db.getRoomById(Integer.parseInt(entityType[1]));
 			switch (((Room) entity).type) {
 			case 0:
@@ -52,7 +57,7 @@ public class ViewEntityActivity extends ListActivity {
 				break;
 			}
 			if (!((Room) entity).label.equals(""))
-				res += getString(R.string.label) + " " + ((Room) entity).label + "\n";
+				res += getString(R.string.label) + " : " + ((Room) entity).label + "\n";
 			res += getString(R.string.building) + " " + ((Room) entity).building.getName() + "\n";
 			res += getString(R.string.floor) + " " + ((Room) entity).floor + "\n";
 			
@@ -64,14 +69,8 @@ public class ViewEntityActivity extends ListActivity {
 			if (((Building) entity).keywords != null)
 				res += getString(R.string.assKeywords) + " " + ((Building) entity).keywords + "\n";
 			
-			res += getString(R.string.buildingsEntities) + " : \n";
-			List<CampusEntity> entitiesOfBuilding = (List) db.getRoomsOfBuilding((Building) entity);
-			List<CampusEntity> servicesofBuilding = (List) db.getServicesOfBuilding((Building) entity);
-			entitiesOfBuilding.addAll(servicesofBuilding);			
-			
-			adapt = new CampusEntityAdapter(this, entitiesOfBuilding);
-			
 		} else if (entityType[0].equals("service")){
+			findViewById(R.id.buildingEntitiesList).setVisibility(View.GONE);
 			entity = db.getServiceById(Integer.parseInt(entityType[1]));
 			res += getString(R.string.service) + " " + entity.getName() + "\n";
 			res += getString(R.string.descr) + " " + ((Service) entity).description + "\n";
@@ -82,15 +81,20 @@ public class ViewEntityActivity extends ListActivity {
 				res += getString(R.string.assKeywords) + " " + ((Service) entity).keywords + "\n";
 		}
 		tv.setText(res);		
-		setListAdapter(adapt);
 	}
 	
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
+	public void onClickList(View v) {
+		Intent intent = new Intent(this, ListEntitiesActivity.class);
 		
-		TextView obj = (TextView) v.findViewById(R.id.hideLabel);
-		Intent intent = new Intent(this, ViewEntityActivity.class);
-		intent.putExtra("id", obj.getText());
+		if (v.getId() == R.id.menuButtonBuildingRooms) {
+			intent.putExtra("buildingID", entityID);
+			intent.putExtra("type", "room");
+		}
+		if (v.getId() == R.id.menuButtonBuildingServices) {
+			intent.putExtra("buildingID", entityID);
+			intent.putExtra("type", "service");
+		}
+		
 		startActivity(intent);
 	}
 }
