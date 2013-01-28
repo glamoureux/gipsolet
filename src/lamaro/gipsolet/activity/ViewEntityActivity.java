@@ -1,7 +1,5 @@
 package lamaro.gipsolet.activity;
 
-import java.util.List;
-
 import lamaro.gipsolet.R;
 import lamaro.gipsolet.data.CampusEntityAdapter;
 import lamaro.gipsolet.data.Database;
@@ -19,12 +17,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class ViewEntityActivity extends Activity {
-	private String entityID;
+	private CampusEntity entity;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_view_entity);
+//		setContentView(R.layout.activity_view_entity);
 		
 		handleIntent(getIntent());
 	}
@@ -35,17 +33,18 @@ public class ViewEntityActivity extends Activity {
 		handleIntent(intent);
 	}
 	
-	private void handleIntent(Intent intent) {				
-		String extra = intent.getStringExtra("id");
-		TextView tv = (TextView) findViewById(R.id.entityLabel);
-		
+	private void handleIntent(Intent intent) {		
 		Database db = new Database(this);
+		String extra = intent.getStringExtra("id");
+		TextView tv = null;
+		
 		String[] entityType = extra.split("/");
-		CampusEntity entity;
+		entity = db.getEntityByTypeId(entityType[0], Integer.parseInt(entityType[1]));
 		String res = "";
 		ListAdapter adapt = null;
-		entityID = entityType[1];
-		if (entityType[0].equals("room")) {
+		if (entity instanceof Room) {
+			setContentView(R.layout.activity_view_room);
+			Room room = (Room) entity;
 			findViewById(R.id.buildingEntitiesList).setVisibility(View.GONE);
 			entity = db.getRoomById(Integer.parseInt(entityType[1]));
 			switch (((Room) entity).type) {
@@ -61,15 +60,19 @@ public class ViewEntityActivity extends Activity {
 			res += getString(R.string.building) + " " + ((Room) entity).building.getName() + "\n";
 			res += getString(R.string.floor) + " " + ((Room) entity).floor + "\n";
 			
-		} else if (entityType[0].equals("building")) {			
-			entity = db.getBuildingById(Integer.parseInt(entityType[1]));
-			res += getString(R.string.building) + " " + entity.getName() + "\n";
-			if (!((Building) entity).label.equals(""))
-				res += getString(R.string.label) + " " + ((Building) entity).label + "\n";
-			if (((Building) entity).keywords != null)
-				res += getString(R.string.assKeywords) + " " + ((Building) entity).keywords + "\n";
+		 } else if (entity instanceof Building) {
+			setContentView(R.layout.activity_view_building);
+			tv = (TextView) findViewById(R.id.entityLabel);
+			Building building = (Building) entity;
+			res += getString(R.string.building) + " " + building.getName() + "\n";
+//			if (!((Building) entity).label.equals(""))
+//				res += getString(R.string.label) + " " + ((Building) entity).label + "\n";
+//			if (((Building) entity).keywords != null)
+//				res += getString(R.string.assKeywords) + " " + ((Building) entity).keywords + "\n";
 			
-		} else if (entityType[0].equals("service")){
+		} else if (entity instanceof Service){
+			setContentView(R.layout.activity_view_service);
+			Service service = (Service) entity;
 			findViewById(R.id.buildingEntitiesList).setVisibility(View.GONE);
 			entity = db.getServiceById(Integer.parseInt(entityType[1]));
 			res += getString(R.string.service) + " " + entity.getName() + "\n";
@@ -87,12 +90,26 @@ public class ViewEntityActivity extends Activity {
 		Intent intent = new Intent(this, ListEntitiesActivity.class);
 		
 		if (v.getId() == R.id.menuButtonBuildingRooms) {
-			intent.putExtra("buildingID", entityID);
+			intent.putExtra("buildingID", entity.getId());
 			intent.putExtra("type", "room");
 		}
 		if (v.getId() == R.id.menuButtonBuildingServices) {
-			intent.putExtra("buildingID", entityID);
+			intent.putExtra("buildingID", entity.getId());
 			intent.putExtra("type", "service");
+		}
+		
+		startActivity(intent);
+	}
+	
+	public void viewOnMap(View v) {
+		Intent intent = new Intent(this, MapActivity.class);
+		
+		if (entity instanceof Building) {			
+			intent.putExtra("building", entity.getId());
+		} else if (entity instanceof Room) {
+			intent.putExtra("room", entity.getId());
+		} else if (entity instanceof Service) {
+			intent.putExtra("service", entity.getId());
 		}
 		
 		startActivity(intent);

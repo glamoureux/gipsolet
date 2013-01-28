@@ -7,6 +7,7 @@ import java.util.List;
 import com.google.android.gms.maps.model.LatLng;
 
 import lamaro.gipsolet.model.Building;
+import lamaro.gipsolet.model.CampusEntity;
 import lamaro.gipsolet.model.ContainerEntity;
 import lamaro.gipsolet.model.Room;
 import lamaro.gipsolet.model.Service;
@@ -103,6 +104,18 @@ public class Database {
 		String[] selectionArgs = new String[] { StringUtils.removeAccents(query.trim().toLowerCase()).replaceAll(" ", "* ") + "*" };
 
 		return query(selection, selectionArgs, null);
+	}
+	
+	public CampusEntity getEntityByTypeId(String type, int id) {
+		if (type.equals("building")) {
+			return getBuildingById(id);
+		} else if (type.equals("room")) {
+			return getRoomById(id);
+		} else if (type.equals("service")) {
+			return getServiceById(id);
+		} else {
+			return null;
+		}
 	}
 
 	public Building getBuildingById(int id) {

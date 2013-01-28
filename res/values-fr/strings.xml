@@ -25,7 +25,7 @@
     <string name="map">Plan</string>
     <string name="location_disabled">Géolocalisation désactivée</string>
     <string name="location_disabled_description">Gipsolet a arrêté de vous suivre.</string>
-	<string name="location_changed">Gipsolet vous suit</string>
+    <string name="location_changed">Gipsolet vous suit</string>
     <string name="location_changed_enter_campus">Vous venez de pénétrer dans le campus Triolet.</string>
     <string name="location_changed_enter_building">Vous venez d\'entrer dans le bâtiment %s.</string>
     <string name="location_changed_quit_campus">Vous avez quitté le campus Triolet.</string>
@@ -38,9 +38,13 @@
     <string name="amphi">Amphi</string>
     <string name="room">Salle</string>
     <string name="entity">entité</string>
+    <string name="campus_name">Campus Triolet</string>
     <string name="buildingsEntities">Liste des salles et services du bâtiment</string>
-    
     <string name="map_bug_on_avd">L\'émulateur ne gère pas Google Maps</string>
-    <string name="buildingRooms">Salles du bâtiment \&quot;%s\&quot;</string>
-    <string name="buildingServices">Services du bâtiment \&quot;%s\&quot;</string>
+    <string name="title_activity_config_map">ConfigMapActivity</string>
+    <string name="camera_tilt">Angle de la caméra</string>
+    <string name="buildingRooms">Salles du bâtiment %s</string>
+    <string name="buildingServices">Services du bâtiment %s</string>
+    <string name="view_on_map">Voir sur le plan</string>
+
 </resources>
