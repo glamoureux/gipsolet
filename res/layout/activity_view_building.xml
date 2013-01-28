@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="35dp"
         android:background="@color/white"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
@@ -28,7 +28,6 @@
         android:paddingLeft="3dp"
         android:paddingRight="3dp"
         android:paddingTop="2dp"
-        android:text="@string/app_description"
         android:textColor="#ffffff"
         android:textSize="14sp" />
 
@@ -40,7 +39,6 @@
         android:layout_weight="0.22"
         android:gravity="right"
         android:orientation="vertical" >
-
         <Button
             android:id="@+id/menuButtonBuildingRooms"
             style="@style/ButtonMenu"

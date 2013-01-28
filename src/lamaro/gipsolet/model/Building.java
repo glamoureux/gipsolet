@@ -2,6 +2,9 @@ package lamaro.gipsolet.model;
 
 import java.util.List;
 
+import lamaro.gipsolet.GipsoletApplication;
+import lamaro.gipsolet.R;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import android.location.Location;
@@ -45,9 +48,9 @@ public class Building extends ContainerEntity implements CampusEntity {
 		if (number == 0) {
 			return label;
 		} else if (label.length() > 0) {
-			return number + "(" + label + ")";
+			return GipsoletApplication.getAppContext().getString(R.string.building) + " " + number + " (" + label + ")";
 		} else {
-			return number.toString();
+			return GipsoletApplication.getAppContext().getString(R.string.building) + " " + number.toString();
 		}
 	}
 

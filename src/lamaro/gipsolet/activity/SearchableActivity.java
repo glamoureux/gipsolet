@@ -1,7 +1,7 @@
 package lamaro.gipsolet.activity;
 
 import lamaro.gipsolet.R;
-import lamaro.gipsolet.data.CEAdapter;
+import lamaro.gipsolet.data.CEAdapterSearch;
 import lamaro.gipsolet.data.Provider;
 import android.app.ListActivity;
 import android.app.SearchManager;
@@ -51,7 +51,7 @@ public class SearchableActivity extends ListActivity {
 
 			// Create a simple cursor adapter for the definitions and apply them
 			// to the ListView
-			ListAdapter adapter = new CEAdapter(this, R.layout.ce_search_item, cursor, 0);
+			ListAdapter adapter = new CEAdapterSearch(this, R.layout.ce_search_item, cursor, 0);
 			setListAdapter(adapter);
 		}
 	}

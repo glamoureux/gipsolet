@@ -2,7 +2,7 @@ package lamaro.gipsolet.activity;
 
 import java.util.List;
 import lamaro.gipsolet.R;
-import lamaro.gipsolet.data.CampusEntityAdapter;
+import lamaro.gipsolet.data.CEAdapter;
 import lamaro.gipsolet.data.Database;
 import lamaro.gipsolet.model.CampusEntity;
 import android.app.ListActivity;
@@ -41,12 +41,12 @@ public class ListEntitiesActivity extends ListActivity {
 				listEntities((List) db.getServices(), Database.TABLE_SERVICES, "");
 			}		
 		} else if (extras.containsKey("buildingID") && extras.containsKey("type")) {
-			String id = extras.getString("buildingID");
+			int id = extras.getInt("buildingID");
 			String type = extras.getString("type");
 			if (type.equals("room"))
-				listEntities((List) db.getRoomsOfBuilding(db.getBuildingById(Integer.parseInt(id))), Database.TABLE_ROOMS, id);
+				listEntities((List) db.getRoomsOfBuilding(db.getBuildingById(id)), Database.TABLE_ROOMS, Integer.toString(id));
 			if (type.equals("service"))
-				listEntities((List) db.getServicesOfBuilding(db.getBuildingById(Integer.parseInt(id))), Database.TABLE_SERVICES, id);
+				listEntities((List) db.getServicesOfBuilding(db.getBuildingById(id)), Database.TABLE_SERVICES, Integer.toString(id));
 		}		
 	}
 	
@@ -76,7 +76,7 @@ public class ListEntitiesActivity extends ListActivity {
 				
 			// Create a simple cursor adapter for the definitions and apply them
 			// to the ListView
-			ListAdapter adapter = new CampusEntityAdapter(this, ces);
+			ListAdapter adapter = new CEAdapter(this, ces);
 			setListAdapter(adapter);
 		}		
 	}
