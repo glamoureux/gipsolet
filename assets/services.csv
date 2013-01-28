@@ -1,55 +1,55 @@
 id;p_lat;p_lon;label;building_id;floor;keywords
-1;;;TP Mécanique;1;;tp mecanique
-2;;;TP EEA;1;;tp eea
-3;;;TP Biochimie-Physiologie;1;;tp biochimie physioloogie
-4;;;Secrétariat du département Mécanique;1;0;secretariat mecanique
-5;;;TP Physique;2;;tp physique
-6;;;"Service Commun d'""Action Sociale (SCAS)""";2;;service commun acion sociale scas
-7;;;TP Chimie;3;;tp chimie
-8;;;TP du département Biologie- Ecologie-Environnement;4;;tp biologie ecologie environnement
-9;43.632876;3.861403;Secrétariat du Département des Langues;5;;secretariat langues
+1;43.634243;3.862214;TP Mécanique;1;;tp mecanique
+2;43.634355;3.862139;TP EEA;1;;tp eea
+3;43.634507;3.862058;TP Biochimie-Physiologie;1;;tp biochimie physiologie
+4;43.634674;3.861978;Secrétariat du département Mécanique;1;0;secretariat mecanique
+5;43.634161;3.861726;TP Physique;2;;tp physique
+6;43.634437;3.861565;"Service Commun d'""Action Sociale (SCAS)""";2;;service commun acion sociale scas
+7;43.634215;3.86113;TP Chimie;3;;tp chimie
+8;43.634006;3.860674;TP du département Biologie- Ecologie-Environnement;4;;tp biologie ecologie environnement
+9;43.632779;3.861211;Secrétariat du Département des Langues;5;;secretariat langues
 10;43.632876;3.861403;Laboratoire des langues;5;;laboratoire langues
-11;43.633326;3.863034;Cafétaria;5;;cafetaria
-12;43.632806;3.861199;SUAPS;5;;suaps activites sportives physiques
+11;43.633307;3.863131;Cafétaria;5;;cafetaria
+12;43.632767;3.861243;SUAPS;5;;suaps activites sportives physiques
 13;43.632255;3.864257;Centre de Formation par apprentissage;5;;centre formation apprentissage
 14;43.632255;3.864257;Direction Faculté des Sciences;6;;direction faculte sciences fds
-15;43.632255;3.864257;Planning + objets trouvés;6;;planning objets trouves
-16;43.632255;3.864257;Relations Internationales;6;;relations internationales 
-17;43.632255;3.864257;Conventions de stages;6;;conventions stages
-18;43.632255;3.864257;Service relations aux Entreprises (SIPEF);6;;service relations entreprises sipef
-19;;;Bibliothèque Universitaire des sciences;8;;bu bibliotheque universitaire
-20;;;CASSIOPEE;8;;cassiope
-21;;;Secrétariat Département DEScire;9;;secretariat descire
-22;;;Secrétariat département Mathématique;9;2;secretariat mathematiques
-23;;;Bibliothèque Mathématiques;9;;bibliotheque mathematiques
+15;43.632989;3.86381;Planning + objets trouvés;6;;planning objets trouves
+16;43.632183;3.864245;Relations Internationales;6;;relations internationales 
+17;43.632208;3.864215;Conventions de stages;6;;conventions stages
+18;43.632202;3.864269;Service relations aux Entreprises (SIPEF);6;;service relations entreprises sipef
+19;43.631461;3.864489;Bibliothèque Universitaire des sciences;8;;bu bibliotheque universitaire
+20;43.631284;3.864585;CASSIOPEE;8;;cassiope
+21;43.631193;3.866262;Secrétariat Département DEScire;9;;secretariat descire
+22;43.631024;3.865696;Secrétariat département Mathématique;9;2;secretariat mathematiques
+23;43.631088;3.865918;Bibliothèque Mathématiques;9;;bibliotheque mathematiques
 24;43.631548;3.866027;Direction des Services Informatiques (DSI);10;;direction services informatiques dsi
-25;;;TP de Physique;12;;tp physiques
-26;;;TP EEA;12;;tp eea
-27;;;Secrétariat département EEA ;13;0;secretariat eea
-28;;;Bureau Faculté des Sciences ;13;0;bureau faculte sciences fds
-29;;;Salle de réunion Faculté des Sciences ;13;0;salle reunion faculte sciences fds
-30;;;Secrétariat département Physique;13;1;secretariat physique
-31;;;"TP Automatique,"" Electrotechnique (département EEA)""";14;;tp automatique electrotechnique eea
-32;;;TP CAPES Physique-Chimie;16;;tp capes physique chimie
-33;;;TP de Chimie;16;;tp chimie
-34;;;Secrétariat département Informatique;16;;secretariat informatique
-35;;;TP de Chimie;19;;tp chimie
-36;;;Secrétariat département Chimie ;19;0;secretariat chimie
-37;;;Pile à combustible (Département Chimie);19;;pile combustible chimie
-38;;;CAPES Physique-Chimie (partie Physique);20;;capes chimie physique
-39;;;Médecine préventive (SCOOPS);20;;medecine preventive scoops
-40;;;Cellule handicap;20;;cellule handicap
-41;;;Infirmerie;20;;infirmerie
-42;;;Secrétariat département Biologie-Ecologie;22;2;secretariat biologie ecologie
-43;;;Secrétariat département DESTEEM;22;1;secretariat desteem
-44;;;TP du département DESTEEM;23;;tp desteem
-45;;;Secrétariat du département Biochimie-Physiologie;24;4;secretariat biologie physiologie
-46;;;TP de Physiologie végétale (département Biochimie-Physiologie);25;;tp physiologie vegetale biochimie
-47;;;TP de Psychophysiologie (département Biochimie-Physiologie);25;;tp psychophysiologie biochimie
-48;;;TP de Physiologie Animale (département Biochimie-Physiologie);26;;tp physiologie animale biochimie
-49;;;TP du département Biologie-Ecologie-Environnement;26;;tp biologie ecologie environnement
-50;;;TP de Microbiologie (département Biochimie-Physiologie);26;;tp microbiologie biochimie physiologie
-51;;;Bureaux de la direction de la Faculté des Sciences : direction centrale;30;;bure direction centrale faculte sciences fds
-52;;;Scolarité et service examens : niveau Licence;30;;scolarite services examens licence
-53;;;Scolarité et service examens : niveau Master;30;;scolarite services examens master
-54;;;Gestion des vacataires et agents non titulaires;30;;gestion vacataires agents non titulaires
+25;43.632426;3.866028;TP de Physique;12;;tp physiques
+26;43.63248;3.866194;TP EEA;12;;tp eea
+27;43.63253;3.864891;Secrétariat département EEA ;13;0;secretariat eea
+28;43.632822;3.865776;Bureau Faculté des Sciences ;13;0;bureau faculte sciences fds
+29;43.632841;3.865964;Salle de réunion Faculté des Sciences ;13;0;salle reunion faculte sciences fds
+30;43.632678;3.865384;Secrétariat département Physique;13;1;secretariat physique
+31;43.633121;3.865427;"TP Automatique,"" Electrotechnique (département EEA)""";14;;tp automatique electrotechnique eea
+32;43.633684;3.864526;TP CAPES Physique-Chimie;16;;tp capes physique chimie
+33;43.633769;3.864762;TP de Chimie;16;;tp chimie
+34;43.633878;3.865024;Secrétariat département Informatique;16;;secretariat informatique
+35;43.633847;3.867391;TP de Chimie;19;;tp chimie
+36;43.634047;3.867284;Secrétariat département Chimie ;19;0;secretariat chimie
+37;43.634219;3.867195;Pile à combustible (Département Chimie);19;;pile combustible chimie
+38;43.633237;3.866471;CAPES Physique-Chimie (partie Physique);20;;capes chimie physique
+39;43.633038;3.86644;Médecine préventive (SCOOPS);20;;medecine preventive scoops
+40;43.633055;3.866481;Cellule handicap;20;;cellule handicap
+41;43.633027;3.866458;Infirmerie;20;;infirmerie
+42;43.632185;3.866659;Secrétariat département Biologie-Ecologie;22;2;secretariat biologie ecologie
+43;43.63233;3.867147;Secrétariat département DESTEEM;22;1;secretariat desteem
+44;43.631863;3.867032;TP du département DESTEEM;23;;tp desteem
+45;43.6315;3.867313;Secrétariat du département Biochimie-Physiologie;24;4;secretariat biologie physiologie
+46;43.63136;3.868209;TP de Physiologie végétale (département Biochimie-Physiologie);25;;tp physiologie vegetale biochimie
+47;43.631389;3.86833;TP de Psychophysiologie (département Biochimie-Physiologie);25;;tp psychophysiologie biochimie
+48;43.630803;3.867847;TP de Physiologie Animale (département Biochimie-Physiologie);26;;tp physiologie animale biochimie
+49;43.630882;3.868104;TP du département Biologie-Ecologie-Environnement;26;;tp biologie ecologie environnement
+50;43.630956;3.868381;TP de Microbiologie (département Biochimie-Physiologie);26;;tp microbiologie biochimie physiologie
+51;43.632105;3.864049;Bureaux de la direction de la Faculté des Sciences : direction centrale;30;;bure direction centrale faculte sciences fds
+52;43.632105;3.86395;Scolarité et service examens : niveau Licence;30;;scolarite services examens licence
+53;43.63216;3.863861;Scolarité et service examens : niveau Master;30;;scolarite services examens master
+54;43.632028;3.863751;Gestion des vacataires et agents non titulaires;30;;gestion vacataires agents non titulaires

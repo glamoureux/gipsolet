@@ -73,7 +73,7 @@ public class ViewEntityActivity extends Activity {
 			findViewById(R.id.buildingEntitiesList).setVisibility(View.GONE);
 			entity = db.getServiceById(Integer.parseInt(entityType[1]));
 			res += getString(R.string.service) + " " + entity.getName() + "\n";
-			res += getString(R.string.descr) + " " + ((Service) entity).description + "\n";
+			res += getString(R.string.descr) + " " + ((Service) entity).label + "\n";
 			if (((Service) entity).building != null)
 				res += getString(R.string.building) + " " + ((Service) entity).building.getName() + "\n";
 			res += getString(R.string.floor) + " " + ((Service) entity).floor + "\n";

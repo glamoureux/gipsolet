@@ -1,25 +1,28 @@
 package lamaro.gipsolet.model;
 
-import android.graphics.PointF;
-import misc.Polygon;
+import java.util.List;
 
-public class Building implements CampusEntity {
+import com.google.android.gms.maps.model.LatLng;
+
+import android.location.Location;
+
+public class Building extends ContainerEntity implements CampusEntity {
 	public Integer id;
-	public Polygon zone;
-	public PointF position = new PointF();
-	public Integer number;
 	public String label;
+	public LatLng latlng = new LatLng(0.0, 0.0);
+	public List<LatLng> shape;
+	public Integer number;
 	public String keywords;
 
-	public boolean isInBuilding(PointF p) {
-		return zone.contains(p);
+	public boolean isInBuilding(Location location) {
+		return contains(new LatLng(location.getLatitude(), location.getLongitude()), shape);
 	}
 
 	@Override
 	public String toString() {
 		String result = id + "\n";
-		result += zone + "\n";
-		result += position.x + "/" + position.y + "\n";
+		result += shape + "\n";
+		result += latlng.latitude + "/" + latlng.longitude + "\n";
 		result += "Batiment " + number + "\n";
 		result += label + "\n";
 		result += keywords + "\n";
@@ -38,23 +41,33 @@ public class Building implements CampusEntity {
 	}
 
 	@Override
-	public PointF getPosition() {
-		return position;
-	}
-
-	@Override
 	public String getName() {
 		if (number == 0) {
 			return label;
 		} else if (label.length() > 0) {
-			return number + " (" + label + ")";
+			return number + "(" + label + ")";
 		} else {
 			return number.toString();
 		}
 	}
 
 	@Override
-	public long getId() {
+	public Integer getId() {
 		return id;
+	}
+
+	@Override
+	public LatLng getLatLng() {
+		return latlng;
+	}
+
+	@Override
+	public List<LatLng> getShape() {
+		return shape;
+	}
+
+	@Override
+	public Building getBuilding() {
+		return null;
 	}
 }

@@ -2,12 +2,15 @@ package lamaro.gipsolet.activity;
 
 import lamaro.gipsolet.R;
 import lamaro.gipsolet.data.Database;
+import lamaro.gipsolet.geolocation.Geolocation;
+import lamaro.gipsolet.geolocation.IGeolocation;
+import lamaro.gipsolet.geolocation.inside.IInside;
+import lamaro.gipsolet.geolocation.inside.IInsideListener;
+import lamaro.gipsolet.geolocation.inside.Inside;
 import lamaro.gipsolet.model.Building;
-import lamaro.gipsolet.service.GeolocationService;
-import lamaro.gipsolet.service.GeolocationServiceBinder;
-import lamaro.gipsolet.service.GeolocationServiceListener;
-import lamaro.gipsolet.service.IGeolocationService;
-import android.location.Location;
+import lamaro.gipsolet.service.NotificationService;
+//import lamaro.gipsolet.service.NotificationServiceBinder;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -20,35 +23,42 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends Activity implements GeolocationServiceListener {
+
+public class MainActivity extends Activity implements IInsideListener {
 	
-	ServiceConnection connection;
-	IGeolocationService service;
-	
+	private IGeolocation geolocation = null;
+	private IInside inside = null;
+
+	//private NotificationService service;
+	private ServiceConnection connection;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// Creation
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		geolocation = Geolocation.getInstance();
+		geolocation.setLocationManager((LocationManager) getSystemService(Context.LOCATION_SERVICE));
+		inside = Inside.getInstance();
+		inside.setContext(getBaseContext());
 
 		connection = new ServiceConnection() {
-			
-			@Override
-			public void onServiceDisconnected(ComponentName name) {
-				service.removeListener(MainActivity.this);
-			}
 
 			@Override
 			public void onServiceConnected(ComponentName name, IBinder binder) {
-				service = ((GeolocationServiceBinder) binder).getService();
-				service.addListener(MainActivity.this);
+				//service = ((NotificationServiceBinder)binder).getService();
+			}
+
+			@Override
+			public void onServiceDisconnected(ComponentName name) {
+				// TODO Auto-generated method stub
 				
-				positionChanged(service.isOnCampus(), service.getInsideOfBuilding());
 			}
 		};
 
-		startService(new Intent(this, GeolocationService.class));
-		bindService(new Intent(this, GeolocationService.class), connection, Context.BIND_AUTO_CREATE);
+		startService(new Intent(this, NotificationService.class));
+		bindService(new Intent(this, NotificationService.class), connection, Context.BIND_AUTO_CREATE);
+
 	}
 
 	public void onClickSearchEditText(View v) {
@@ -82,27 +92,6 @@ public class MainActivity extends Activity implements GeolocationServiceListener
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
-
-	@Override
-	public void positionChanged(boolean inCampus, Building insideOfBuilding) {
-		Button inTriolet = (Button) findViewById(R.id.in_triolet);
-		Button notInTriolet = (Button) findViewById(R.id.not_in_triolet);
-		
-		if (inCampus) {
-			inTriolet.setVisibility(View.VISIBLE);
-			notInTriolet.setVisibility(View.GONE);
-			
-			
-			if (insideOfBuilding != null) {
-				inTriolet.setText(getString(R.string.current_location, insideOfBuilding.getName()));
-			} else {
-				inTriolet.setText(getString(R.string.in_triolet));
-			}
- 		} else {
-			inTriolet.setVisibility(View.GONE);
-			notInTriolet.setVisibility(View.VISIBLE);
-		}
-	}
 	
 	public void goCampus(View view) {
 //		Intent goCampus = new Intent(this, GoCampusActivity.class);
@@ -123,5 +112,25 @@ public class MainActivity extends Activity implements GeolocationServiceListener
 	public void onDestroy() {
 		unbindService(connection);
 		super.onDestroy();
+	}
+
+	@Override
+	public void insideStateChanged(boolean onCampus, Building insideOfBuilding) {
+		Button inTriolet = (Button) findViewById(R.id.in_triolet);
+		Button notInTriolet = (Button) findViewById(R.id.not_in_triolet);
+		
+		if(onCampus) {
+			inTriolet.setVisibility(View.VISIBLE);
+			notInTriolet.setVisibility(View.GONE);
+			
+			if(insideOfBuilding != null) {
+				inTriolet.setText(getString(R.string.current_location, insideOfBuilding.getName()));
+			} else {
+				inTriolet.setText(getString(R.string.in_triolet));
+			}
+ 		} else {
+			inTriolet.setVisibility(View.GONE);
+			notInTriolet.setVisibility(View.VISIBLE);
+		}
 	}
 }

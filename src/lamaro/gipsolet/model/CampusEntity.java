@@ -1,12 +1,13 @@
 package lamaro.gipsolet.model;
 
-import android.graphics.PointF;
+import java.util.List;
+
+import com.google.android.gms.maps.model.LatLng;
 
 public interface CampusEntity {
-
-	PointF getPosition();
-	
+	Integer getId();
 	String getName();
-	
-	long getId();
+	LatLng getLatLng();
+	List<LatLng> getShape();
+	Building getBuilding();
 }

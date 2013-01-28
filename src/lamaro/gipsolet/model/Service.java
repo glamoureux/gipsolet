@@ -1,11 +1,13 @@
 package lamaro.gipsolet.model;
 
-import android.graphics.PointF;
+import java.util.List;
+
+import com.google.android.gms.maps.model.LatLng;
 
 public class Service implements CampusEntity {
 	public Integer id;
-	public PointF position = new PointF();
-	public String description;
+	public String label;
+	public LatLng latlng = new LatLng(0.0, 0.0);
 	public Building building;
 	public Integer floor;
 	public String keywords;
@@ -13,9 +15,9 @@ public class Service implements CampusEntity {
 	@Override
 	public String toString() {
 		String result = id + "\n";
-		result += position.x + "/" + position.y + "\n";
+		result += latlng.latitude + "/" + latlng.longitude + "\n";
 		result += "Etage " + floor + "\n";
-		result += description + "\n";
+		result += label + "\n";
 		
 		return result;
 	}
@@ -31,17 +33,27 @@ public class Service implements CampusEntity {
 	}
 
 	@Override
-	public PointF getPosition() {
-		return position;
-	}
-
-	@Override
 	public String getName() {
-		return description;
+		return label;
 	}
 	
 	@Override
-	public long getId() {
+	public Integer getId() {
 		return id;
+	}
+
+	@Override
+	public LatLng getLatLng() {
+		return latlng;
+	}
+
+	@Override
+	public List<LatLng> getShape() {
+		return null;
+	}
+
+	@Override
+	public Building getBuilding() {
+		return building;
 	}
 }

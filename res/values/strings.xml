@@ -38,9 +38,10 @@
     <string name="amphi">Hall</string>
     <string name="room">Room</string>
     <string name="entity">entity</string>
-    <string name="buildingsEntities">rooms and services list of the building</string>
-    
+    <string name="campus_name">Triolet Campus</string>
+    <string name="buildingsEntities">List of all associated entities</string>
     <string name="map_bug_on_avd">The emulator doesn\'t handle Google Maps</string>
-    <string name="buildingRooms">Rooms of building \&quot;%s\&quot;</string>
-    <string name="buildingServices">Services of building \&quot;%s\&quot;</string>
+    <string name="title_activity_config_map">ConfigMapActivity</string>
+    <string name="camera_tilt">Camera Tilt</string>
+
 </resources>

@@ -51,7 +51,7 @@ public class CampusEntityAdapter extends BaseAdapter {
 		if (ce.getClass().getName().contains("Building"))
 			label.setText(context.getString(R.string.building) + " " + ce.getName());
 		else if (ce.getClass().getName().contains("Service"))
-			label.setText(((Service) ce).description);
+			label.setText(((Service) ce).label);
 		else
 			label.setText(ce.getName());
 		
