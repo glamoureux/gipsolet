@@ -51,5 +51,5 @@
     <string name="buildingServices">Services du bâtiment %s</string>
     <string name="view_on_map">Voir</string>
     <string name="go_home">Revenir à l\'accueil</string>
-
+	<string name="type_map">Type de la carte</string>
 </resources>

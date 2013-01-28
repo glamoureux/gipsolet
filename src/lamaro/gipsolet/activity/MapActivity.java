@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 
 import lamaro.gipsolet.R;
+import lamaro.gipsolet.activity.ConfigMapActivity.MAP_TYPE;
 import lamaro.gipsolet.data.Database;
 import lamaro.gipsolet.geolocation.Geolocation;
 import lamaro.gipsolet.geolocation.IGeolocation;
@@ -31,6 +32,7 @@ import lamaro.gipsolet.model.ContainerEntity;
 import lamaro.gipsolet.model.Room;
 import lamaro.gipsolet.model.Service;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -75,11 +77,14 @@ public class MapActivity extends FragmentActivity implements IGeolocationListene
 	private boolean setMobileFocus = true;
 
 	private int camera_tilt = 0;
+	
+	private MAP_TYPE map_type = MAP_TYPE.Satellite;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.map);
 
 		if (getIntent().hasExtra("building")) {
@@ -93,6 +98,9 @@ public class MapActivity extends FragmentActivity implements IGeolocationListene
 		}
 		if (getIntent().hasExtra("camera_tilt")) {
 			camera_tilt = getIntent().getIntExtra("camera_tilt", camera_tilt);
+		}
+		if(getIntent().hasExtra("map_type")) {
+			map_type = (MAP_TYPE) getIntent().getSerializableExtra("map_type");
 		}
 
 		geolocation = Geolocation.getInstance();
@@ -111,7 +119,12 @@ public class MapActivity extends FragmentActivity implements IGeolocationListene
 
 		map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
 		if (map != null) {
-			map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+			if(map_type == MAP_TYPE.Normal) map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+			else if(map_type == MAP_TYPE.Hybrid) map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+			else if(map_type == MAP_TYPE.Satellite) map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+			else if(map_type == MAP_TYPE.Terrain) map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+			else if(map_type == MAP_TYPE.None) map.setMapType(GoogleMap.MAP_TYPE_NONE);
+			
 			map.setOnMarkerClickListener(this);
 			map.setOnMapLongClickListener(this);
 			map.setOnCameraChangeListener(new OnCameraChangeListener() {
@@ -476,10 +489,8 @@ public class MapActivity extends FragmentActivity implements IGeolocationListene
 					refreshMobileFocusTransition = true;
 					mobileFocus = true;
 				} else {
-					if (refreshMap) {
-						refreshCampus = true;
-						refreshGoogleNavigation = true;
-					}
+					refreshCampus = true;
+					refreshGoogleNavigation = true;
 					refreshMobile = true;
 				}
 			} else {

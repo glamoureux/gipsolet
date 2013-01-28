@@ -1,22 +1,29 @@
 package lamaro.gipsolet.activity;
 
 import lamaro.gipsolet.R;
-import lamaro.gipsolet.R.layout;
-import lamaro.gipsolet.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 
-public class ConfigMapActivity extends Activity {
+public class ConfigMapActivity extends Activity implements OnItemSelectedListener {
 	
 	private static final int MENU_MAP = 0;
 	
 	private int camera_tilt = 0;
 	
 	private EditText editText1 = null;
+	
+	public enum MAP_TYPE {Normal, Hybrid, Satellite, Terrain, None};
+	
+	private MAP_TYPE map_type = MAP_TYPE.Normal;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +34,12 @@ public class ConfigMapActivity extends Activity {
 		
 		editText1 = (EditText)findViewById(R.id.editText1);
 		editText1.setText("" + camera_tilt, EditText.BufferType.EDITABLE);
+		
+		Spinner choix = (Spinner) findViewById(R.id.choix);
+		ArrayAdapter<MAP_TYPE> semaine = new ArrayAdapter<MAP_TYPE>(this, android.R.layout.simple_spinner_item, MAP_TYPE.values());
+		semaine.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		choix.setOnItemSelectedListener(this);
+		choix.setAdapter(semaine);
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,6 +58,7 @@ public class ConfigMapActivity extends Activity {
         	camera_tilt = Integer.parseInt(editText1.getText().toString());
         	
         	intent.putExtra("camera_tilt", camera_tilt);
+        	intent.putExtra("map_type", map_type);
         	
         	startActivity(intent);
         	
@@ -52,5 +66,16 @@ public class ConfigMapActivity extends Activity {
         }
         return false;
     }
+
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View vue, int position, long id) {
+		map_type = MAP_TYPE.values()[position];
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
