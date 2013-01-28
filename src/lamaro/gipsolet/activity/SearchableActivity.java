@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
-import android.support.v4.widget.CursorAdapter;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -18,22 +17,31 @@ import android.widget.TextView;
 public class SearchableActivity extends ListActivity {
 
 	private TextView resultText;
+	private String lastQuery;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		setContentView(R.layout.ce_search);
-		
 		resultText = (TextView) findViewById(R.id.text_result);
-		
 		handleIntent(getIntent());
+		
+		lastQuery = null;
 	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {
 		setIntent(intent);
 		handleIntent(intent);
+	}
+	
+	protected void onRestart() {
+		super.onRestart();
+
+		if (lastQuery == null) {
+			finish();
+		}
 	}
 
 	private void doMySearch(String query) {
@@ -68,14 +76,16 @@ public class SearchableActivity extends ListActivity {
 
 	private void handleIntent(Intent intent) {
 		System.out.println(intent);
-		System.out.println(intent.getAction());
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String query = intent.getStringExtra(SearchManager.QUERY);
+			lastQuery = query;
 			doMySearch(query);
 		} else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
-			Intent intent1 = new Intent(this, ViewEntityActivity.class);
-			intent1.putExtra("id", intent.getDataString());
-			startActivity(intent1);
+			lastQuery = null;
+			Intent intentViewResult = new Intent(this, ViewEntityActivity.class);
+			intentViewResult.putExtra("id", intent.getDataString());
+			startActivity(intentViewResult);
 		}
 	}
+
 }

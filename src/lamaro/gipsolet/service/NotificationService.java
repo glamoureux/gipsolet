@@ -30,12 +30,12 @@ public class NotificationService extends IntentService implements IInsideListene
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		
+
 		binder = new NotificationServiceBinder(this);
 		inside = Inside.getInstance();
 		inside.addListener(this);
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	private void showNotification(CharSequence title, CharSequence message) {
 		Intent notificationIntent = new Intent(getBaseContext(), MainActivity.class);
@@ -67,13 +67,13 @@ public class NotificationService extends IntentService implements IInsideListene
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void insideStateChanged(boolean onCampus, Building insideOfBuilding) {
-		if(lastOnCampus != onCampus) {
-			if(onCampus) {
+		if (lastOnCampus != onCampus) {
+			if (onCampus) {
 				showNotification(getBaseContext().getString(R.string.location_changed),
 						getBaseContext().getString(R.string.location_changed_enter_campus));
 			} else {
@@ -83,8 +83,8 @@ public class NotificationService extends IntentService implements IInsideListene
 		}
 		lastOnCampus = onCampus;
 
-		if(lastInsideOfBuilding != insideOfBuilding) {
-			if(insideOfBuilding == null) {
+		if (lastInsideOfBuilding != insideOfBuilding) {
+			if (insideOfBuilding == null) {
 				showNotification(
 						getBaseContext().getString(R.string.location_changed),
 						getBaseContext().getString(R.string.location_changed_quit_building,

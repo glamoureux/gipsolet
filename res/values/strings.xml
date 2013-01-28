@@ -20,6 +20,9 @@
     <string name="buildings">Buildings</string>
     <string name="rooms">Rooms</string>
     <string name="services">Services</string>
+    <string name="services_list">Services\'s list</string>
+    <string name="rooms_list">Rooms\'s list</string>
+    <string name="buildings_list">Building\'s list</string>
     <string name="not_in_triolet">You\'re currently outside of the campus</string>
     <string name="in_triolet">You\'re currently in the campus</string>
     <string name="map">Map</string>
@@ -47,5 +50,7 @@
     <string name="camera_tilt">Camera Tilt</string>
     <string name="buildingRooms">Rooms of building %s</string>
     <string name="buildingServices">Services of building %s</string>
-	<string name="view_on_map">View on map</string>
+    <string name="view_on_map">View</string>
+    <string name="go_home">Go home</string>
+
 </resources>

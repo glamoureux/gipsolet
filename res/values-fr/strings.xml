@@ -19,7 +19,9 @@
     <string name="building">Bâtiment</string>
     <string name="buildings">Bâtiments</string>
     <string name="rooms">Salles</string>
-    <string name="services">Services</string>
+    <string name="services_list">Liste des services</string>
+    <string name="rooms_list">Liste des salles</string>
+    <string name="buildings_list">Liste des bâtiments</string>
     <string name="not_in_triolet">Vous n\'êtes actuellement pas sur le campus</string>
     <string name="in_triolet">Vous êtes actuellement sur le campus</string>
     <string name="map">Plan</string>
@@ -47,6 +49,7 @@
     <string name="camera_tilt">Angle de la caméra</string>
     <string name="buildingRooms">Salles du bâtiment %s</string>
     <string name="buildingServices">Services du bâtiment %s</string>
-    <string name="view_on_map">Voir sur le plan</string>
+    <string name="view_on_map">Voir</string>
+    <string name="go_home">Revenir à l\'accueil</string>
 
 </resources>

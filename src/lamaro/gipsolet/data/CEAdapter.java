@@ -22,7 +22,7 @@ public class CEAdapter extends BaseAdapter {
 	    	
 	private LayoutInflater inflater;
 	
-	public CEAdapter(Context context, List<CampusEntity> list) {
+	public CEAdapter(Context context, List<? extends CampusEntity> list) {
 		CEs = list;
 		this.context = context;
 		inflater = LayoutInflater.from(context);
