@@ -2,6 +2,9 @@ package lamaro.gipsolet.model;
 
 import java.util.List;
 
+import lamaro.gipsolet.GipsoletApplication;
+import lamaro.gipsolet.R;
+
 import com.google.android.gms.maps.model.LatLng;
 
 public class Service implements CampusEntity {
@@ -10,7 +13,6 @@ public class Service implements CampusEntity {
 	public LatLng latlng = new LatLng(0.0, 0.0);
 	public Building building;
 	public Integer floor;
-	public String keywords;
 	
 	@Override
 	public String toString() {
@@ -20,6 +22,14 @@ public class Service implements CampusEntity {
 		result += label + "\n";
 		
 		return result;
+	}
+	
+	public String getFloor() {
+		if (floor == 0) {
+			return GipsoletApplication.getAppContext().getString(R.string.ground_floor);
+		} else {
+			return GipsoletApplication.getAppContext().getString(R.string.floor) + " " + floor;
+		}
 	}
 	
 	@Override

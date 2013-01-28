@@ -12,6 +12,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,7 +23,6 @@ public class ViewEntityActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// setContentView(R.layout.activity_view_entity);
 
 		handleIntent(getIntent());
 	}
@@ -36,56 +36,40 @@ public class ViewEntityActivity extends Activity {
 	private void handleIntent(Intent intent) {
 		Database db = new Database(this);
 		String extra = intent.getStringExtra("id");
-		TextView tv = null;
 
 		String[] entityType = extra.split("/");
 		entity = db.getEntityByTypeId(entityType[0], Integer.parseInt(entityType[1]));
-		String res = "";
 		ListAdapter adapt = null;
 		if (entity instanceof Room) {
 			setContentView(R.layout.activity_view_room);
 			Room room = (Room) entity;
-			findViewById(R.id.buildingEntitiesList).setVisibility(View.GONE);
-			entity = db.getRoomById(Integer.parseInt(entityType[1]));
-			switch (((Room) entity).type) {
-			case 0:
-				res += getString(R.string.amphi) + " " + entity.getName() + "\n";
-				break;
-			default:
-				res += getString(R.string.room) + " " + entity.getName() + "\n";
-				break;
-			}
-			if (!((Room) entity).label.equals(""))
-				res += getString(R.string.label) + " : " + ((Room) entity).label + "\n";
-			res += getString(R.string.building) + " " + ((Room) entity).building.getName() + "\n";
-			res += getString(R.string.floor) + " " + ((Room) entity).floor + "\n";
-
+			TextView entityLabel = (TextView) findViewById(R.id.entityLabel);
+			entityLabel.setText(room.getName());
+			TextView typeRoom = (TextView) findViewById(R.id.typeRoom);
+			typeRoom.setText(room.getType());
+			TextView buildingAndFloor = (TextView) findViewById(R.id.buidingAndFloor);
+			buildingAndFloor.setText(room.getBuilding().getName() + " - " + room.getFloor());
 		} else if (entity instanceof Building) {
 			setContentView(R.layout.activity_view_building);
-			tv = (TextView) findViewById(R.id.entityLabel);
+			TextView entityLabel = (TextView) findViewById(R.id.entityLabel);
 			Building building = (Building) entity;
-			res += building.getName();
-			// if (!((Building) entity).label.equals(""))
-			// res += getString(R.string.label) + " " + ((Building)
-			// entity).label + "\n";
-			// if (((Building) entity).keywords != null)
-			// res += getString(R.string.assKeywords) + " " + ((Building)
-			// entity).keywords + "\n";
-
+			entityLabel.setText(building.getName());
 		} else if (entity instanceof Service) {
 			setContentView(R.layout.activity_view_service);
 			Service service = (Service) entity;
-			findViewById(R.id.buildingEntitiesList).setVisibility(View.GONE);
-			entity = db.getServiceById(Integer.parseInt(entityType[1]));
-			res += getString(R.string.service) + " " + entity.getName() + "\n";
-			res += getString(R.string.descr) + " " + ((Service) entity).label + "\n";
-			if (((Service) entity).building != null)
-				res += getString(R.string.building) + " " + ((Service) entity).building.getName() + "\n";
-			res += getString(R.string.floor) + " " + ((Service) entity).floor + "\n";
-			if (((Service) entity).keywords != null)
-				res += getString(R.string.assKeywords) + " " + ((Service) entity).keywords + "\n";
+			TextView entityLabel = (TextView) findViewById(R.id.entityLabel);
+			entityLabel.setText(service.getName());
+			TextView buildingAndFloor = (TextView) findViewById(R.id.buidingAndFloor);
+			buildingAndFloor.setText(service.getBuilding().getName() + " - " + service.getFloor());
+			
+//			res += getString(R.string.service) + " " + entity.getName() + "\n";
+//			res += getString(R.string.descr) + " " + ((Service) entity).label + "\n";
+//			if (((Service) entity).building != null)
+//				res += getString(R.string.building) + " " + ((Service) entity).building.getName() + "\n";
+//			res += getString(R.string.floor) + " " + ((Service) entity).floor + "\n";
+//			if (((Service) entity).keywords != null)
+//				res += getString(R.string.assKeywords) + " " + ((Service) entity).keywords + "\n";
 		}
-		tv.setText(res);
 	}
 
 	public void onClickList(View v) {
@@ -114,6 +98,13 @@ public class ViewEntityActivity extends Activity {
 			intent.putExtra("service", entity.getId());
 		}
 
+		startActivity(intent);
+	}
+	
+	public void viewBuilding(View v) {
+		Intent intent = new Intent(this, ViewEntityActivity.class);
+		intent.putExtra("id", "building/" + entity.getBuilding().getId());
+		
 		startActivity(intent);
 	}
 }

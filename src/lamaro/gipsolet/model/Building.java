@@ -15,7 +15,6 @@ public class Building extends ContainerEntity implements CampusEntity {
 	public LatLng latlng = new LatLng(0.0, 0.0);
 	public List<LatLng> shape;
 	public Integer number;
-	public String keywords;
 
 	public boolean isInBuilding(Location location) {
 		return contains(new LatLng(location.getLatitude(), location.getLongitude()), shape);
@@ -28,7 +27,6 @@ public class Building extends ContainerEntity implements CampusEntity {
 		result += latlng.latitude + "/" + latlng.longitude + "\n";
 		result += "Batiment " + number + "\n";
 		result += label + "\n";
-		result += keywords + "\n";
 
 		return result;
 	}
